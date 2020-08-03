@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { styled } from '@material-ui/core/styles';
 import useMediaStreamTrack from '../../hooks/useMediaStreamTrack/useMediaStreamTrack';
+import useMainSpeaker from "../../hooks/useMainSpeaker/useMainSpeaker";
 
 const Video = styled('video')({
   width: '100%',
@@ -8,7 +9,7 @@ const Video = styled('video')({
   objectFit: 'contain',
 });
 
-export default function VideoTrack({ track, isLocal, priority }) {
+export default function VideoTrack({ track, isLocal, priority, mainParticipant }) {
   const videoElementRef = useRef(null);
   const mediaStreamTrack = useMediaStreamTrack(track);
 
@@ -32,5 +33,8 @@ export default function VideoTrack({ track, isLocal, priority }) {
   const isFrontFacing = mediaStreamTrack?.getSettings().facingMode !== 'environment';
   const style = isLocal && isFrontFacing ? { transform: 'rotateY(180deg)' } : {};
 
-  return <Video ref={videoElementRef} style={style} />;
+  // console.log(priority)
+  // const mainParticipantStyle = isLocal && isFrontFacing && priority === 'high' ? { height: '100%', objectFit: 'cover' } : {}
+
+  return <Video ref={videoElementRef} style={{...style, ...{ height: '100%', objectFit: 'cover' }}} />;
 }

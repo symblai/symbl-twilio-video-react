@@ -20,13 +20,14 @@ const useStyles = makeStyles((theme) => ({
 
     },
     speakerAvatar: {
-        color: '#fff',
-        '&:hover': {
-            cursor: 'pointer',
-            opacity: 0.75
-        },
-        width: theme.spacing(7),
-        height: theme.spacing(7),
+        color: '#fefefe',
+        // '&:hover': {
+        //     cursor: 'pointer',
+        //     opacity: 0.75
+        // },
+        width: theme.spacing(4),
+        height: theme.spacing(4),
+        border: '1px solid'
         // transform: 'scale(0.80)'
     },
 
@@ -43,12 +44,13 @@ const useStyles = makeStyles((theme) => ({
     item: {
         display: "flex",
         alignItems: "center",
-        margin: "0 10px",
+        margin: "5px 10px",
         flexGrow:1,
         width:"90%"
     },
     avatarContainer: {
         margin: 10,
+        marginTop: 0
     },
     p:{
         margin:"5px 0",
@@ -75,10 +77,10 @@ const useStyles = makeStyles((theme) => ({
     description:{
         width:"80%",
         textOverflow: "ellipsis",
-        height: 36,
+        minHeight: 36,
         display: "block",
         overflow: "hidden",
-        whiteSpace: "nowrap",
+        whiteSpace: "break-spaces",
     },
     cancelButton: {
         color: '#888888',
@@ -151,7 +153,7 @@ const EditableText = React.forwardRef(({value, handleChange, onBlur,classes, upd
 
 });
 
-export default function TranscriptItem({from, description, timeDiff, updateTranscript, index}) {
+export default function TranscriptItem({from = {}, description, timeDiff = {}, editable, updateTranscript, index}) {
     const classes = useStyles();
     const speakerName = from.name;
     const editRef = useRef(null);
@@ -164,55 +166,76 @@ export default function TranscriptItem({from, description, timeDiff, updateTrans
         setIsEditable(true);
     }
     useEffect(() => {
-        if(isEditable) editRef.current.focus();
+        if (editable) {
+            if (isEditable) editRef.current.focus();
+        }
     },[isEditable])
     const handleDescriptionChange = (e) => setText(e.target.value);
     return (<Grid item className={classes.item} >
         <Grid item className={classes.avatarContainer}>
             <Avatar
                 className={classes.speakerAvatar}
-                style={{ backgroundColor: '#FFF', border: '1px solid #333' }}
+                style={{ backgroundColor: 'inherit'}}
             >
                 {!!speakerName ? (
                     speakerName.includes('Multiple Speakers') ? (
-                        <Group style={{ color: '#333' }} />
+                        <Group />
                     ) : !isPhoneNumber(speakerName) ? (
                         <Typography
-                            style={{ color: '#333', fontSize: 16 }}
+                            style={{ fontSize: 16 }}
                             id={'avatar_' + from.userId}
                             variant={'body1'}
                         >
                             {getTextAvatarContent(speakerName)}
                         </Typography>
                     ) : (
-                        <PhoneIcon style={{ color: '#333' }} />
+                        <PhoneIcon />
                     )
                 ) : null}
             </Avatar>
 
         </Grid>
-        <Grid item className={classes.transcript} onMouseEnter={() => setShowEditIcon(true)} onMouseLeave={() => setShowEditIcon(false)}>
-            {showEditIcon && !isEditable && <EditIcon onClick={handleEditIconClick} color={"action"} className={classes.editIcon}/>}
-            <div>
-                <Typography className={classes.timeText}>
-                    {speakerName} &nbsp;
-                    {[
-                        (timeDiff.hours === '00' ? '' : timeDiff.hours + ':') +
-                        timeDiff.minutes,
-                        timeDiff.seconds
-                    ].join(':')}
-                </Typography>
-            </div>
+        {
+            editable ? (
+                <Grid item className={classes.transcript} onMouseEnter={() => setShowEditIcon(true)} onMouseLeave={() => setShowEditIcon(false)}>
+                    {showEditIcon && !isEditable && <EditIcon onClick={handleEditIconClick} color={"action"} className={classes.editIcon}/>}
+                    <div>
+                        <Typography className={classes.timeText}>
+                            {speakerName} &nbsp;
+                            {[
+                                (timeDiff.hours === '00' ? '' : timeDiff.hours + ':') +
+                                timeDiff.minutes,
+                                timeDiff.seconds
+                            ].join(':')}
+                        </Typography>
+                    </div>
 
-            {(isEditable) ?
-                <EditableText ref={editRef} updateTranscript={() => {updateTranscript(index, text)}}
-                              dismissEdit={onBlur}
-                              value={text}
-                              handleChange={handleDescriptionChange}
-                              onBlur={onBlur} classes ={classes}
-                /> :
-                <Typography variant="caption" className={classes.description}>{description}</Typography>
-            }
-        </Grid>
+                    {(isEditable) ?
+                        <EditableText ref={editRef} updateTranscript={() => {updateTranscript(index, text)}}
+                                      dismissEdit={onBlur}
+                                      value={text}
+                                      handleChange={handleDescriptionChange}
+                                      onBlur={onBlur} classes ={classes}
+                        /> :
+                        <Typography variant="caption" className={classes.description}>{description}</Typography>
+                    }
+                </Grid>
+            ) : (
+                <Grid item className={classes.transcript}>
+                    <div>
+                        <Typography className={classes.timeText}>
+                            {speakerName} &nbsp;
+                            {[
+                                (timeDiff.hours === '00' ? '' : timeDiff.hours + ':') +
+                                timeDiff.minutes,
+                                timeDiff.seconds
+                            ].join(':')}
+                        </Typography>
+                    </div>
+                    <Typography variant="caption" className={classes.description}>{description}</Typography>
+                </Grid>
+            )
+        }
+
     </Grid>);
 }

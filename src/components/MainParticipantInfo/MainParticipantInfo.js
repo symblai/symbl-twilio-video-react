@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     gridArea: 'participantList',
+    height: '100vh'
   },
   isVideoSwitchedOff: {
     '& video': {

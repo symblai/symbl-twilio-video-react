@@ -8,6 +8,7 @@ import useSelectedParticipant from '../VideoProvider/useSelectedParticipant/useS
 const Container = styled('aside')(({ theme }) => ({
   padding: '0.5em',
   overflowY: 'auto',
+  zIndex: 500,
   [theme.breakpoints.down('xs')]: {
     overflowY: 'initial',
     overflowX: 'auto',

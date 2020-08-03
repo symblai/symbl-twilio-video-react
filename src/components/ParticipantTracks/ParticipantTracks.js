@@ -12,35 +12,37 @@ import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
  */
 
 export default function ParticipantTracks({
-  participant,
-  disableAudio,
-  enableScreenShare,
-  videoPriority,
-}) {
-  const { room } = useVideoContext();
-  const publications = usePublications(participant);
-  const isLocal = participant === room.localParticipant;
+                                              participant,
+                                              disableAudio,
+                                              enableScreenShare,
+                                              videoPriority,
+                                              mainParticipant
+                                          }) {
+    const {room} = useVideoContext();
+    const publications = usePublications(participant);
+    const isLocal = participant === room.localParticipant;
 
-  let filteredPublications;
+    let filteredPublications;
 
-  if (enableScreenShare && publications.some(p => p.trackName.includes('screen'))) {
-    filteredPublications = publications.filter(p => !p.trackName.includes('camera'));
-  } else {
-    filteredPublications = publications.filter(p => !p.trackName.includes('screen'));
-  }
+    if (enableScreenShare && publications.some(p => p.trackName.includes('screen'))) {
+        filteredPublications = publications.filter(p => !p.trackName.includes('camera'));
+    } else {
+        filteredPublications = publications.filter(p => !p.trackName.includes('screen'));
+    }
 
-  return (
-    <>
-      {filteredPublications.map(publication => (
-        <Publication
-          key={publication.kind}
-          publication={publication}
-          participant={participant}
-          isLocal={isLocal}
-          disableAudio={disableAudio}
-          videoPriority={videoPriority}
-        />
-      ))}
-    </>
-  );
+    return (
+        <>
+            {filteredPublications.map(publication => (
+                <Publication
+                    key={publication.kind}
+                    publication={publication}
+                    participant={participant}
+                    isLocal={isLocal}
+                    disableAudio={disableAudio}
+                    videoPriority={videoPriority}
+                    mainParticipant={mainParticipant}
+                />
+            ))}
+        </>
+    );
 }

@@ -1,5 +1,5 @@
 import WebSocket from '../websocket/WebSocket';
-import {apiBase} from '../config';
+import {postData} from "./utils";
 
 const webSocketConnectionStatus = {
     notAvailable: 'not_available',
@@ -10,42 +10,53 @@ const webSocketConnectionStatus = {
     connecting: 'connecting'
 };
 
+const appId = process.env.SYMBL_APP_ID || '747174314759635a356e4d4c4654314f7665685237585a76327a456a37535649';
+const appSecret = process.env.SYMBL_APP_SECRET || '39444a6c374b7349736d56416b7866746135416b3162434f4e427174503368702d65426257736f33356168683150776643724a30475a7a7a79453278454e5971';
+
+const symblTwilioConnectorBasePath = process.env.SYMBL_API_BASE_PATH || 'https://api-staging-0f1fb505a2aa41730c1916be57892b84.symbl.ai';
+const twilioSipUri = process.env.TWILIO_SIP_URI || 'symbl.sip.us1.twilio.com'
+
 export default class SymblTwilioConnector {
 
     constructor(options = {}) {
         let callback = options.callback;
 
         if (!callback || typeof callback !== 'function') {
-            throw new Error('callback function is required for establishing connection with Session-Manger Websocket.');
+            throw new Error('callback function is required for establishing connection with Symbl Connector.');
         }
 
-        let basePath = options.basePath || apiBase;
+        let basePath = symblTwilioConnectorBasePath;
+        if (!basePath) {
+            throw new Error('Base Path is required!');
+        }
+
         if (basePath.startsWith('https')) {
             basePath = basePath.replace('https', 'wss')
         } else if (basePath.startsWith('http')) {
             basePath = basePath.replace('https', 'wss')
         }
+
         const uri = `${basePath}/connector/twilio/subscribe/events`;
 
-        const {id, onConnectionEstablished, onConnectionEstablishmentFailed} = options;
+        const {roomName, onConnectionEstablished, onConnectionEstablishmentFailed} = options;
 
-        if (!id) {
-            throw new Error('id is required for establishing connection.');
+        if (!roomName) {
+            throw new Error('roomName is required for establishing connection.');
         }
 
-        this.id = id;
+        this.roomName = roomName;
         this.callback = callback;
-        this.webSocketUrl = `${uri}/${this.id}`;
+        this.webSocketUrl = `${uri}/${this.roomName}`;
 
         this.onConnectionEstablished = onConnectionEstablished;
         this.onConnectionEstablishmentFailed = onConnectionEstablishmentFailed;
 
-        this.connect = this.connect.bind(this);
+        this.subscribe = this.subscribe.bind(this);
         this.onConnectWebSocket = this.onConnectWebSocket.bind(this);
         this.onErrorWebSocket = this.onErrorWebSocket.bind(this);
         this.onMessageWebSocket = this.onMessageWebSocket.bind(this);
         this.onCloseWebSocket = this.onCloseWebSocket.bind(this);
-        this.disconnect = this.disconnect.bind(this);
+        this.unsubscribe = this.unsubscribe.bind(this);
     }
 
     onCloseWebSocket() {
@@ -78,21 +89,72 @@ export default class SymblTwilioConnector {
         }
     }
 
-    connect() {
+    subscribe() {
         console.debug('WebSocket Connecting on: ' + this.webSocketUrl);
         this.webSocketStatus = webSocketConnectionStatus.connecting;
         this.webSocket = new WebSocket({
             url: this.webSocketUrl,
+            appId: appId,
+            appSecret: appSecret,
             //accessToken: this.oauth2.activeToken,
             onError: this.onErrorWebSocket,
             onClose: this.onCloseWebSocket,
             onMessage: this.onMessageWebSocket,
             onConnect: this.onConnectWebSocket
         });
+        console.debug('Connected: ', this.webSocket)
     }
 
-    disconnect() {
-        console.debug('Disconnecting WebSocket Connection');
+    unsubscribe() {
+        console.log('Disconnecting WebSocket Connection');
         this.webSocket.disconnect();
     }
+
+    async startSymblConnector(email) {
+        const roomName = this.roomName;
+        if (!roomName) {
+            throw new Error(`'roomName' is required to connect to Symbl Connector.`);
+        }
+        return await postData(
+            `${symblTwilioConnectorBasePath}/v1/connector/twilio/endpoint:connect`,
+            {
+                "operation": "start",
+                "roomName": roomName,
+                "endpoint": {
+                    "type": "sip",
+                    "providerName": "Twilio",
+                    "uri": `sip:${roomName.toLowerCase()}@${twilioSipUri}`
+                },
+                "actions": email ? [{
+                    "invokeOn": "stop",
+                    "name": "sendSummaryEmail",
+                    "parameters": {
+                        "emails": [
+                            email
+                        ]
+                    }
+                }] : undefined
+            }, {
+                credentialsInHeader: true,
+                appId,
+                appSecret
+            });
+    }
+
+    async stopSymbl(connectionId) {
+        if (connectionId) {
+            console.log('ConnectionID for termination: ', connectionId);
+            return postData(
+                `${symblTwilioConnectorBasePath}/v1/connector/twilio/endpoint:connect`,
+                {
+                    "operation": "stop",
+                    "connectionId": connectionId
+                }, {
+                    credentialsInHeader: true,
+                    appId,
+                    appSecret
+                });
+        }
+    };
+
 }

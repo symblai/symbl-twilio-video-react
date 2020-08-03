@@ -1,5 +1,3 @@
-import isNode from 'detect-node';
-
 export default class WebSocket {
 
     constructor(options = {}) {
@@ -7,10 +5,11 @@ export default class WebSocket {
             throw new Error('url is required in the options.');
         }
 
-        this.isNode = isNode;
-
         this.url = options.url;
         this.accessToken = options.accessToken || '';
+        this.appId = options.appId;
+        this.appSecret = options.appSecret;
+
 
         this.options = options;
 
@@ -50,10 +49,13 @@ export default class WebSocket {
 
     connect() {
         if (!!window && window.WebSocket) {
-            const urlWithToken = `${this.url}?access_token=${this.accessToken}`;
-            this.webSocket = new window.WebSocket(urlWithToken, null, null, {
-                'X-API-KEY': this.accessToken
+            const url = `${this.url}?appId=${this.appId}&appSecret=${this.appSecret}`;
+            console.log('Making call on: ', url, window.WebSocket)
+            this.webSocket = new window.WebSocket(url, null, null, {
+                'X-APP-ID': this.appId,
+                'X-APP-SECRET': this.appSecret
             });
+            console.log('WebSocket: ', this.webSocket);
         }
         this.webSocket.binaryType = 'arraybuffer';
         // TODO: Support for token in url

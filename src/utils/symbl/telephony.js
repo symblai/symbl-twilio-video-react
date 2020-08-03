@@ -12,7 +12,7 @@ export const startEndpoint = async (roomName, options = {}, callback) => {
         const connection = await clientSDK.startEndpoint({
             endpoint: {
                 type: 'sip',
-                uri: `sip:${roomName}@${process.env.SYMBL_API_BASE_PATH || 'symbl.sip.twilio.com'}`
+                uri: `sip:${roomName}@${process.env.TWILIO_SIP_URI || 'symbl.sip.twilio.com'}`
             },
             actions: [{
                 "invokeOn": "stop",

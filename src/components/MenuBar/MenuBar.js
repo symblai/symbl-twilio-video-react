@@ -64,7 +64,7 @@ export default function MenuBar() {
   const { URLRoomName } = useParams();
   const { user, getToken, isFetching } = useAppState();
   const { isConnecting, connect, isAcquiringLocalTracks } = useVideoContext();
-  const roomState = useRoomState();
+  const {roomState} = useRoomState();
 
   const [name, setName] = useState(user?.displayName || '');
   const [roomName, setRoomName] = useState('');
