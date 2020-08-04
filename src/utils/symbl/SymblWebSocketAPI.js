@@ -2,8 +2,8 @@ import {getAccessToken} from "./utils";
 
 // const basePath = process.env.SYMBL_API_BASE_PATH || 'api.symbl.ai';
 
-const appId = process.env.SYMBL_APP_ID || '747174314759635a356e4d4c4654314f7665685237585a76327a456a37535649';
-const appSecret = process.env.SYMBL_APP_SECRET || '39444a6c374b7349736d56416b7866746135416b3162434f4e427174503368702d65426257736f33356168683150776643724a30475a7a7a79453278454e5971';
+const appId = process.env.SYMBL_APP_ID;
+const appSecret = process.env.SYMBL_APP_SECRET;
 
 export default class SpeechRecognizerService {
 
