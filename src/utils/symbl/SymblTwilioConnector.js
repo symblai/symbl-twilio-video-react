@@ -13,7 +13,7 @@ const webSocketConnectionStatus = {
 const appId = process.env.SYMBL_APP_ID;
 const appSecret = process.env.SYMBL_APP_SECRET;
 
-const symblTwilioConnectorBasePath = process.env.SYMBL_API_BASE_PATH || 'https://api-staging-0f1fb505a2aa41730c1916be57892b84.symbl.ai';
+const symblTwilioConnectorBasePath = process.env.SYMBL_API_BASE_PATH;
 const twilioSipUri = process.env.TWILIO_SIP_URI || 'symbl.sip.us1.twilio.com'
 
 export default class SymblTwilioConnector {
