@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme) =>
             position: 'absolute',
             width: '100%',
             zIndex: 1000,
+            height: '6.8em',
+            overflow: 'hidden',
             // maxWidth: 'min-content'
         },
         paper: {
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) =>
             display: 'inline-block',
             backgroundColor: 'rgb(0,0,0, 0)',
             zIndex: 1000,
-            maxWidth: '40vw'
+            maxWidth: '60vw'
         },
         caption: {
             fontWeight: 600,
@@ -56,10 +58,26 @@ const ClosedCaptions = (props, context) => {
 
     const {roomState} = useRoomState();
     const isUserActive = useIsUserActive();
-    const addExtraPadding = isUserActive || roomState === 'disconnected';
+    const addExtraMargin = isUserActive || roomState === 'disconnected';
+
+    const [containerRef, setContainerRef] = useState(null);
+
+    useEffect(() => {
+        if (!containerRef) {
+            setContainerRef(React.createRef());
+        }
+    });
+
+    useEffect(() => {
+        if (containerRef && containerRef.current) {
+            const element = containerRef.current;
+            element.scrollTop = element.scrollHeight;
+        }
+    }, [text, containerRef])
+
 
     return (
-        <div className={classes.container} style={{paddingBottom: addExtraPadding ? 80 : 0 }}>
+        <div className={classes.container} ref={containerRef} style={{marginBottom: addExtraMargin ? 80 : 0 }}>
             {text ? (
             <Paper variant={"outlined"} className={classes.paper}>
                 <Typography variant={"caption"} className={classes.caption}>
