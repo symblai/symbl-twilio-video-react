@@ -3,8 +3,8 @@ import config from '../../config';
 const {symbl} = config;
 // const basePath = process.env.SYMBL_API_BASE_PATH || 'api.symbl.ai';
 
-const appId = process.env.SYMBL_APP_ID;
-const appSecret = process.env.SYMBL_APP_SECRET;
+const appId = process.env.SYMBL_APP_ID || symbl.appId;
+const appSecret = process.env.SYMBL_APP_SECRET || symbl.appSecret;
 
 export default class SymblWebSocketAPI {
 
@@ -316,7 +316,7 @@ export default class SymblWebSocketAPI {
 
     onStart(event) {
         console.debug('Symbl WebSocket API started.');
-        //setInterval(this.checkSpeechStatus, 1000);
+        this.handlers.onStart && setTimeout(() => this.handlers.onStart(event), 0)
     }
 
     onEnd(event) {
