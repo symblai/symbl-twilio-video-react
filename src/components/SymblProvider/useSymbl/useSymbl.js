@@ -88,10 +88,10 @@ export default function useSymbl(onError, onResult, options) {
     );
 
     const stopSymblWebSocketApi = useCallback(
-        async () => {
+        async (callback) => {
             if (window.websocketApi) {
                 try {
-                    await window.websocketApi.stop()
+                    await window.websocketApi.stop(callback)
                     setIsConnected(false);
                 } catch (err) {
                     onError(err);
@@ -128,8 +128,6 @@ export default function useSymbl(onError, onResult, options) {
         },
         [isMute]
     );
-
-
 
     return {
         isConnected,

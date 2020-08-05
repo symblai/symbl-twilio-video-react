@@ -6,6 +6,8 @@ import MainParticipant from '../MainParticipant/MainParticipant';
 import {useAppState} from "../../state";
 import useVideoContext from "../../hooks/useVideoContext/useVideoContext";
 import Transcript from "../Transcript/Transcript";
+import useSymblContext from "../../hooks/useSymblContext/useSymblContext";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Container = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -23,8 +25,10 @@ const Container = styled('div')(({ theme }) => ({
 }));
 
 export default function Room() {
+  const { isStarting } = useSymblContext();
   return (
     <Container>
+      { isStarting ? <CircularProgress /> : undefined}
       <ParticipantStrip />
       <MainParticipant />
       <Transcript height={"100%"}/>

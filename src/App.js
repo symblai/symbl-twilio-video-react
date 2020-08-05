@@ -14,7 +14,6 @@ import ClosedCaptions from "./components/ClosedCaptions/ClosedCaptions";
 import useSymbl from "./components/SymblProvider/useSymbl/useSymbl";
 import {SymblProvider} from "./components/SymblProvider";
 import Controls from "./components/Controls/Controls";
-// import {IntelligenceProvider} from "./components/IntelligenceProvider";
 
 const Container = styled('div')({
     display: 'grid',
@@ -24,10 +23,6 @@ const Container = styled('div')({
 const Main = styled('main')({
     overflow: 'hidden',
 });
-
-// const user = {
-//     displayName: 'Toshish'
-// }
 
 function App() {
     const {roomState, room} = useRoomState();
@@ -46,8 +41,6 @@ function App() {
         <Container style={{height}}>
             {roomState === 'disconnected' ? <MenuBar/> : undefined}
             <Main>
-                {/*<LocalVideoPreview/>*/}
-                {/*<Room/>*/}
                 {roomState === 'disconnected' ? <LocalVideoPreview/> : (
                     <SymblProvider roomName={URLRoomName}>
                         <Room/>

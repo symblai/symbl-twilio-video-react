@@ -76,9 +76,14 @@ export function SymblProvider({
         setMessages([messages, ...newMessages]);
     };
 
+    const onConversationCompleted = (messages) => {
+        // console.log(messages);
+    }
+
     const handlers = {
         onSpeechDetected,
-        onMessageResponse
+        onMessageResponse,
+        onConversationCompleted
     };
 
     const {

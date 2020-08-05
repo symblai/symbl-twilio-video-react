@@ -1,5 +1,5 @@
 export const getAccessToken = async ({appId, appSecret}) => {
-    return await postData('https://api.rammer.ai/oauth2/token:generate', {
+    return await postData('https://api.symbl.ai/oauth2/token:generate', {
         type: 'application',
         appId,
         appSecret

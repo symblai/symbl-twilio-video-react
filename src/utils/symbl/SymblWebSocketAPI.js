@@ -1,12 +1,12 @@
 import {getAccessToken} from "./utils";
-
+import config from '../../config';
+const {symbl} = config;
 // const basePath = process.env.SYMBL_API_BASE_PATH || 'api.symbl.ai';
 
-const appId = process.env.SYMBL_APP_ID || '747174314759635a356e4d4c4654314f7665685237585a76327a456a37535649';
-const appSecret = process.env.SYMBL_APP_SECRET || '39444a6c374b7349736d56416b7866746135416b3162434f4e427174503368702d65426257736f33356168683150776643724a30475a7a7a79453278454e5971';
+const appId = process.env.SYMBL_APP_ID || symbl.appId;
+const appSecret = process.env.SYMBL_APP_SECRET || symbl.appSecret;
 
-export default class SpeechRecognizerService {
-
+export default class SymblWebSocketAPI {
 
     constructor(lang = 'en-US', handlers = {}, options = {}) {
         this.status = 'NONE';
@@ -48,6 +48,7 @@ export default class SpeechRecognizerService {
         this.onRecognitionStopped = this.onRecognitionStopped.bind(this);
         this.onMessageResponse = this.onMessageResponse.bind(this);
         this.onTopicResponse = this.onTopicResponse.bind(this);
+        this.onConversationCompleted = this.onConversationCompleted.bind(this);
 
         this.isSpeechStarted = false;
         this.timeSinceSpeechNotDetected = 0;
@@ -62,7 +63,7 @@ export default class SpeechRecognizerService {
         this.connectionHandlingInProgress = false;
 
         this.defaultPhrases = [
-            "rammer.ai", "Toshish", "Surbhi", "symbl.ai", "API", "insights"
+
         ];
 
         this.timeOutRef = null;
@@ -190,6 +191,9 @@ export default class SpeechRecognizerService {
     }
 
     createAudioProcessingTopology(stream) {
+        const AudioContext = window.AudioContext // Default
+            || window.webkitAudioContext; // Safari and old versions of Chrome
+
         const context = new AudioContext();
         const source = context.createMediaStreamSource(stream);
 
@@ -265,9 +269,10 @@ export default class SpeechRecognizerService {
             } else if (type === 'recognition_result') {
                 this.onSpeechDetected(data.message);
             } else if (type === 'recognition_stopped') {
-                console.log('Recognition stopped received');
                 this.onRecognitionStopped();
-            } else if (type === 'error') {
+            } else if (type === 'conversation_completed') {
+                this.onConversationCompleted(data.message)
+            } if (type === 'error') {
                 this.onError(data);
             }
         } else {
@@ -303,7 +308,6 @@ export default class SpeechRecognizerService {
 
     onRecognitionStopped() {
         this.onStopCallback && this.onStopCallback();
-        this.ws.close();
     }
 
     onNoMatch() {
@@ -365,6 +369,15 @@ export default class SpeechRecognizerService {
         }
     }
 
+    onConversationCompleted(message, callback) {
+        if (this.handlers.onConversationCompleted) {
+            setImmediate(() => {
+                this.handlers.onConversationCompleted(message);
+            });
+        }
+        this.ws.close();
+    }
+
     onSpeechStart(event) {
         this.isSpeechStarted = true;
         if (this.handlers.onSpeechStart) {
@@ -381,7 +394,6 @@ export default class SpeechRecognizerService {
     }
 
     onNoSpeech() {
-        console.log('no speech');
         this.silenceDetected();
         if (this.handlers.onNoSpeech) {
             setTimeout(this.handlers.onNoSpeech, 0);
