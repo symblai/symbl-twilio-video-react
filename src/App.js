@@ -14,6 +14,7 @@ import ClosedCaptions from "./components/ClosedCaptions/ClosedCaptions";
 import useSymbl from "./components/SymblProvider/useSymbl/useSymbl";
 import {SymblProvider} from "./components/SymblProvider";
 import Controls from "./components/Controls/Controls";
+import useMainSpeaker from "./hooks/useMainSpeaker/useMainSpeaker";
 
 const Container = styled('div')({
     display: 'grid',
@@ -27,22 +28,39 @@ const Main = styled('main')({
 function App() {
     const {roomState, room} = useRoomState();
     const height = useHeight();
-    const {URLRoomName, UserName} = useParams();
+    let {URLRoomName, UserName} = useParams();
+    const [roomName, setRoomName] = useState(URLRoomName);
+    const [userName, setUserName] = useState(UserName);
     const {getToken} = useAppState();
     const {connect} = useVideoContext();
 
+    const [hasStarted, setHasStarted] = useState(false);
+    const [isStarting, setIsStarting] = useState(false);
+
     useEffect(() => {
-        if (URLRoomName && UserName && (!room || !room.name)) {
-            getToken(UserName, URLRoomName).then(token => connect(token));
+        if (roomState === 'disconnected' && !hasStarted && !isStarting) {
+            if (!(roomName && userName) && (room && room.name && room.localParticipant && room.localParticipant.identity)) {
+                !roomName && setRoomName(room.name);
+                !userName && setUserName(room.localParticipant.identity);
+            }
+            if (roomName && userName) {
+                setIsStarting(true)
+                getToken(userName, roomName).then(token => {
+                    connect(token)
+                    setIsStarting(false);
+                    setHasStarted(true);
+                });
+            }
         }
-    }, []);
+    }, [roomName, userName, room]);
+
 
     return (
         <Container style={{height}}>
             {roomState === 'disconnected' ? <MenuBar/> : undefined}
             <Main>
                 {roomState === 'disconnected' ? <LocalVideoPreview/> : (
-                    <SymblProvider roomName={URLRoomName}>
+                    <SymblProvider roomName={roomName}>
                         <Room/>
                         <ClosedCaptions />
                         <Controls/>

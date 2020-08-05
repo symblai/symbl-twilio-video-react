@@ -83,7 +83,10 @@ export function SymblProvider({
     const handlers = {
         onSpeechDetected,
         onMessageResponse,
-        onConversationCompleted
+        onConversationCompleted,
+        onInsightResponse: (data) => {
+            console.log(JSON.stringify(data))
+        },
     };
 
     const {

@@ -19,7 +19,11 @@ const useStyles = makeStyles((theme) =>
 
 const disconnect = async (room, stopSymblWebSocketApi) => {
     await stopSymblWebSocketApi(() => {
+
         room.disconnect();
+        if (!window.location.origin.includes('twil.io')) {
+            window.location = "/";
+        }
     });
 
 
