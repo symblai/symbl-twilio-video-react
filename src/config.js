@@ -1,7 +1,9 @@
 const config = {
     symbl: {
-        appId: '746e47594b634c4b3032446b354e504d7467757938333479466161344467444e',
-        appSecret: '4c4439676d614d4e75586a787547587663416b594544614c4a56684952697535394d746d3151724c555f435076796554386c6b743356757470586937374c5a61'
+        appId: '',
+        appSecret: ''
     }
 };
 export default config;
+
+console.log(config)
