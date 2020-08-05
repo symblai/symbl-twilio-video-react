@@ -3,8 +3,8 @@ import config from '../../config';
 const {symbl} = config;
 // const basePath = process.env.SYMBL_API_BASE_PATH || 'api.symbl.ai';
 
-const appId = process.env.SYMBL_APP_ID || symbl.appId;
-const appSecret = process.env.SYMBL_APP_SECRET || symbl.appSecret;
+const appId = process.env.SYMBL_APP_ID;
+const appSecret = process.env.SYMBL_APP_SECRET;
 
 export default class SymblWebSocketAPI {
 

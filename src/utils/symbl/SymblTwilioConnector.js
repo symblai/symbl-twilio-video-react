@@ -10,10 +10,10 @@ const webSocketConnectionStatus = {
     connecting: 'connecting'
 };
 
-const appId = process.env.SYMBL_APP_ID || '747174314759635a356e4d4c4654314f7665685237585a76327a456a37535649';
-const appSecret = process.env.SYMBL_APP_SECRET || '39444a6c374b7349736d56416b7866746135416b3162434f4e427174503368702d65426257736f33356168683150776643724a30475a7a7a79453278454e5971';
+const appId = process.env.SYMBL_APP_ID;
+const appSecret = process.env.SYMBL_APP_SECRET;
 
-const symblTwilioConnectorBasePath = process.env.SYMBL_API_BASE_PATH || 'https://api-staging-0f1fb505a2aa41730c1916be57892b84.symbl.ai';
+const symblTwilioConnectorBasePath = process.env.SYMBL_API_BASE_PATH;
 const twilioSipUri = process.env.TWILIO_SIP_URI || 'symbl.sip.us1.twilio.com'
 
 export default class SymblTwilioConnector {
