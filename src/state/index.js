@@ -1,7 +1,5 @@
 import React, { createContext, useContext, useReducer, useState } from 'react';
 import { settingsReducer, initialSettings } from './settings/settingsReducer';
-// import useFirebaseAuth from './useFirebaseAuth/useFirebaseAuth';
-// import usePasscodeAuth from './usePasscodeAuth/usePasscodeAuth';
 
 export const StateContext = createContext(null);
 
@@ -30,28 +28,16 @@ export default function AppStateProvider(props) {
     dispatchSetting,
   };
 
-  // if (process.env.REACT_APP_SET_AUTH === 'firebase') {
-  //   contextValue = {
-  //     ...contextValue,
-  //     ...useFirebaseAuth(), // eslint-disable-line react-hooks/rules-of-hooks
-  //   };
-  // } else if (process.env.REACT_APP_SET_AUTH === 'passcode') {
-  //   contextValue = {
-  //     ...contextValue,
-  //     ...usePasscodeAuth(), // eslint-disable-line react-hooks/rules-of-hooks
-  //   };
-  // } else {
     contextValue = {
       ...contextValue,
       getToken: async (identity, roomName) => {
         const headers = new window.Headers();
-        const endpoint = process.env.REACT_APP_TOKEN_ENDPOINT || '/token';
+        const endpoint = process.env.REACT_APP_TWILIO_TOKEN_ENDPOINT || '/twilio-token';
         const params = new window.URLSearchParams({ identity, roomName });
 
         return fetch(`${endpoint}?${params}`, { headers, mode: 'cors'}).then(res => res.text());
       },
     };
-  // }
 
   const getToken = (name, room) => {
     setIsFetching(true);

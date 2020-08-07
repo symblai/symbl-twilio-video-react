@@ -1,10 +1,10 @@
 import {getAccessToken} from "./utils";
 import config from '../../config';
 const {symbl} = config;
-// const basePath = process.env.SYMBL_API_BASE_PATH || 'api.symbl.ai';
 
 const appId = process.env.SYMBL_APP_ID || symbl.appId;
 const appSecret = process.env.SYMBL_APP_SECRET || symbl.appSecret;
+const apiBase = process.env.SYMBL_API_BASE_PATH || 'https://api.symbl.ai';
 
 export default class SymblWebSocketAPI {
 
@@ -37,7 +37,10 @@ export default class SymblWebSocketAPI {
 
         this.onStopCallback = null;
         this.start = this.start.bind(this);
-        const url = `wss://api.symbl.ai/v1/realtime/insights/` + this.options.meetingId;
+        const _url = new URL(apiBase);
+        _url.protocol = 'wss:';
+        const wssBasePath = _url.origin;
+        const url = `${wssBasePath}/v1/realtime/insights/` + this.options.meetingId;
         this.speechConfig = {languageCode: lang, url};
 
         this.processAudio = this.processAudio.bind(this);

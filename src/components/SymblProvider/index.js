@@ -1,9 +1,8 @@
 import React, {createContext, useEffect, useState} from 'react';
 import useSymbl from "./useSymbl/useSymbl";
-import useMainSpeaker from '../../hooks/useMainSpeaker/useMainSpeaker';
 import useVideoContext from "../../hooks/useVideoContext/useVideoContext";
 
-const symblConnectionMode = process.env.SYMBL_CONNECTION_MODE || 'websocket_api';
+const symblConnectionMode = 'websocket_api';
 
 export const SymblContext = createContext(null);
 

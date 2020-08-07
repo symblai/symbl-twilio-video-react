@@ -11,6 +11,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "clsx": "^1.1.1",
+    "concurrently": "^5.1.0",
     "d3-timer": "^1.0.10",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -19,6 +20,7 @@
     "lodash-es": "^4.17.15",
     "lodash.throttle": "^4.1.1",
     "moment": "^2.27.0",
+    "node-fetch": "^2.6.0",
     "react": "^16.13.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
@@ -28,10 +30,11 @@
     "twilio-video": "^2.7.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently npm:server npm:dev",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node server.js"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,10 +1,16 @@
 export const getAccessToken = async ({appId, appSecret}) => {
-    return await postData('https://api.symbl.ai/oauth2/token:generate', {
-        type: 'application',
-        appId,
-        appSecret
-    });
-
+    if (appId && appSecret) {
+        const apiBase = process.env.SYMBL_API_BASE_PATH || 'https://api.symbl.ai';
+        return await postData(`${apiBase}/oauth2/token:generate`, {
+            type: 'application',
+            appId,
+            appSecret
+        });
+    } else {
+        const endpoint = process.env.REACT_APP_SYMBL_TOKEN_ENDPOINT || '/symbl-token';
+        const resp = await fetch(`${endpoint}`, { headers: new window.Headers(), mode: 'cors'});
+        return await resp.json();
+    }
 }
 
 /**
