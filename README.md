@@ -104,3 +104,6 @@ curl 'localhost:8081/token?identity=TestName&roomName=TestRoom'
 If you want to see how the application behaves with multiple participants, you can simply open `localhost:3000` in multiple tabs in your browser and connect to the same room using different user names.
 
 Additionally, if you would like to invite other participants to a room, each participant would need to have their own installation of this application and use the same room name and Account SID (the API Key and Secret can be different).
+
+## License
+See the [LICENSE](https://github.com/symblai/symbl-video-react/blob/master/LICENSE) file for details.
