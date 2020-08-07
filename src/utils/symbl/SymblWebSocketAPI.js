@@ -265,7 +265,7 @@ export default class SymblWebSocketAPI {
 
             if (type === 'recognition_started') {
                 // call the onStart callback
-                this.onStart(event);
+                this.onStart(data.message);
                 this.status = 'STARTED';
                 this.retryCount = 0;
                 this.connectionHandlingInProgress = false;
@@ -317,9 +317,11 @@ export default class SymblWebSocketAPI {
         super.onNoMatch();
     }
 
-    onStart(event) {
+    onStart(message) {
         console.debug('Symbl WebSocket API started.');
-        this.handlers.onStart && setTimeout(() => this.handlers.onStart(event), 0)
+        this.handlers.onStart && setTimeout(() => {
+            this.handlers.onStart({conversationId: message.data && message.data.conversationId})
+        }, 0)
     }
 
     onEnd(event) {
