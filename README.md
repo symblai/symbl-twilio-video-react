@@ -96,7 +96,7 @@ The response will be a token that can be used to connect to a room.
 Try it out with this sample `curl` command:
 
 ```bash
-curl 'localhost:8081/token?identity=TestName&roomName=TestRoom'
+curl 'localhost:8081/twilio-token?identity=TestName&roomName=TestRoom'
 ```
 
 ### Multiple Participants in a Room
