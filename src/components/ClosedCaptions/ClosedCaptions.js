@@ -1,14 +1,11 @@
 import {Paper, Typography} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import {ThemeProvider} from "@material-ui/styles";
-import theme from "../../theme";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
-import useSymbl from "../SymblProvider/useSymbl/useSymbl";
 import useSymblContext from "../../hooks/useSymblContext/useSymblContext";
 import useIsUserActive from "../Controls/useIsUserActive/useIsUserActive";
 import useRoomState from "../../hooks/useRoomState/useRoomState";
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         container: {
             textAlign: 'center',
@@ -66,7 +63,7 @@ const ClosedCaptions = (props, context) => {
         if (!containerRef) {
             setContainerRef(React.createRef());
         }
-    });
+    }, [containerRef]);
 
     useEffect(() => {
         if (containerRef && containerRef.current) {

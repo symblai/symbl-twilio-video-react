@@ -1,5 +1,4 @@
 import React from 'react';
-import { LocalVideoTrack } from 'twilio-video';
 import VideoTrack from '../VideoTrack/VideoTrack';
 import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
 

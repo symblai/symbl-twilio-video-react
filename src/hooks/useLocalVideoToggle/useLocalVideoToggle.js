@@ -1,4 +1,3 @@
-import { LocalVideoTrack } from 'twilio-video';
 import { useCallback, useRef, useState } from 'react';
 import useVideoContext from '../useVideoContext/useVideoContext';
 

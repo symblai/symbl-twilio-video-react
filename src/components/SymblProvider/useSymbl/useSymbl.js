@@ -5,12 +5,9 @@ import SymblWebSocketAPI from "../../../utils/symbl/SymblWebSocketAPI";
 export default function useSymbl(onError, onResult, options) {
     const [isStarting, setIsStarting] = useState(false);
     const [connectionId, setConnectionId] = useState('');
-    const [isStopping, setIsStopping] = useState(false);
     const [isConnected, setIsConnected] = useState(false);
     const [isMute, setIsMuted] = useState(false);
     const [startedTime, setStartedTime] = useState(null);
-
-    const {meetingId, meetingTitle, localParticipant, participants, handlers} = options;
 
     const startSymbl = useCallback(
         (roomName, email) => {
@@ -39,7 +36,7 @@ export default function useSymbl(onError, onResult, options) {
                     setIsStarting(false);
             });
         },
-        [options, onError, onResult]
+        [onError, onResult, connectionId]
     );
 
     const stopSymbl = useCallback(async (connectionId) => {
@@ -58,22 +55,22 @@ export default function useSymbl(onError, onResult, options) {
                 onError(err);
             }
         }
-    }, [connectionId]);
+    }, [onError]);
 
     const startSymblWebSocketApi = useCallback(
-        async () => {
+        async (handlers, options) => {
             if (isStarting) {
                 console.log('Another connection already starting. Returning');
             }
             setIsStarting(true);
             window.websocketApi = new SymblWebSocketAPI('en-US',
-                handlers,
-                {
-                    participants,
-                    localParticipant,
-                    meetingId,
-                    meetingTitle
-                });
+                handlers, options);
+                // {
+                //     participants,
+                //     localParticipant,
+                //     meetingId,
+                //     meetingTitle
+                // });
             try {
                 await window.websocketApi.openConnectionAndStart();
                 setStartedTime(new Date().toISOString());
@@ -84,7 +81,7 @@ export default function useSymbl(onError, onResult, options) {
                 setIsStarting(false);
             }
         },
-        [options, onError, onResult]
+        [onError]
     );
 
     const stopSymblWebSocketApi = useCallback(
@@ -98,7 +95,7 @@ export default function useSymbl(onError, onResult, options) {
                 }
             }
         },
-        [isConnected]
+        [onError]
     );
 
     const muteSymbl = useCallback(
@@ -112,7 +109,7 @@ export default function useSymbl(onError, onResult, options) {
                 }
             }
         },
-        [isMute]
+        [onError]
     );
 
     const unMuteSymbl = useCallback(
@@ -126,13 +123,12 @@ export default function useSymbl(onError, onResult, options) {
                 }
             }
         },
-        [isMute]
+        [onError]
     );
 
     return {
         isConnected,
         isStarting,
-        isStopping,
         connectionId,
         startSymbl,
         stopSymbl,

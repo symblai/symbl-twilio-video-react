@@ -14,9 +14,9 @@ import capitalize from "lodash-es/capitalize";
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
 
     },
     speakerAvatar: {
@@ -36,25 +36,25 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 700,
         overflow: 'hidden'
     },
-    mainContainer:{
-        padding:24,
-        height:"250px",
-        overflowY:"auto"
+    mainContainer: {
+        padding: 24,
+        height: "250px",
+        overflowY: "auto"
     },
     item: {
         display: "flex",
         alignItems: "center",
         margin: "5px 10px",
-        flexGrow:1,
-        width:"90%"
+        flexGrow: 1,
+        width: "90%"
     },
     avatarContainer: {
         margin: 10,
         marginTop: 0
     },
-    p:{
-        margin:"5px 0",
-        fontSize:14
+    p: {
+        margin: "5px 0",
+        fontSize: 14
     },
     avatar: {
         backgroundColor: red[500],
@@ -65,17 +65,17 @@ const useStyles = makeStyles((theme) => ({
     },
     transcript: {
         position: "relative",
-        flexGrow:1,
-        width:"80%",
-        wordBreak:"break-all"
+        flexGrow: 1,
+        width: "80%",
+        wordBreak: "break-all"
     },
     inputBox: {
-        width:"100%",
+        width: "100%",
         // height:"30px",
-        outline:"none"
+        outline: "none"
     },
-    description:{
-        width:"80%",
+    description: {
+        width: "80%",
         textOverflow: "ellipsis",
         minHeight: 36,
         display: "block",
@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
         borderColor: '#1C921C88',
         textTransform: 'none',
         padding: 0,
-        margin:"10px"
+        margin: "10px"
     }
 
 }));
@@ -114,11 +114,11 @@ const isPhoneNumber = (text) => {
 }
 
 
-
-const EditableText = React.forwardRef(({value, handleChange, onBlur,classes, updateTranscript, dismissEdit}, ref) => {
+const EditableText = React.forwardRef(({value, handleChange, onBlur, classes, updateTranscript, dismissEdit}, ref) => {
     return (
         <>
-            <input ref={ref} type="text" value={value} onBlur={onBlur} onChange={handleChange} className={classes.inputBox} />
+            <input ref={ref} type="text" value={value} onBlur={onBlur} onChange={handleChange}
+                   className={classes.inputBox}/>
             <Grid container justify="flex-start">
                 <Grid item key={'cancel-edit'}>
                     <Button
@@ -127,7 +127,10 @@ const EditableText = React.forwardRef(({value, handleChange, onBlur,classes, upd
                         color={"primary"}
                         className={classes.cancelButton}
                         tabIndex={4}
-                        onClick={()=>{console.log('ehheheh');dismissEdit()}}
+                        onClick={() => {
+                            console.log('ehheheh');
+                            dismissEdit()
+                        }}
                     >
                         Cancel
                     </Button>
@@ -141,7 +144,8 @@ const EditableText = React.forwardRef(({value, handleChange, onBlur,classes, upd
                         // tabIndex={5}
                         onClick={() => {
                             console.log('in editabletext')
-                            updateTranscript()}}
+                            updateTranscript()
+                        }}
                     >
                         {/*<KeyboardReturnIcon fontSize={'small'} style={{marginRight: 8}} />*/}
                         Save
@@ -160,36 +164,36 @@ export default function TranscriptItem({from = {}, description, timeDiff = {}, e
     const [isEditable, setIsEditable] = useState(false);
     const [showEditIcon, setShowEditIcon] = useState(false);
     const [text, setText] = useState(description);
-    const onBlur = () => setTimeout(() =>setIsEditable(false),0);
+    const onBlur = () => setTimeout(() => setIsEditable(false), 0);
     const handleEditIconClick = () => {
-        window.editRef=editRef
+        window.editRef = editRef
         setIsEditable(true);
     }
     useEffect(() => {
-        if (editable) {
-            if (isEditable) editRef.current.focus();
+        if (editable && isEditable) {
+            editRef.current.focus();
         }
-    },[isEditable])
+    }, [isEditable, editable])
     const handleDescriptionChange = (e) => setText(e.target.value);
-    return (<Grid item className={classes.item} >
+    return (<Grid item className={classes.item}>
         <Grid item className={classes.avatarContainer}>
             <Avatar
                 className={classes.speakerAvatar}
-                style={{ backgroundColor: 'inherit'}}
+                style={{backgroundColor: 'inherit'}}
             >
                 {!!speakerName ? (
                     speakerName.includes('Multiple Speakers') ? (
-                        <Group />
+                        <Group/>
                     ) : !isPhoneNumber(speakerName) ? (
                         <Typography
-                            style={{ fontSize: 16 }}
+                            style={{fontSize: 16}}
                             id={'avatar_' + from.userId}
                             variant={'body1'}
                         >
                             {getTextAvatarContent(speakerName)}
                         </Typography>
                     ) : (
-                        <PhoneIcon />
+                        <PhoneIcon/>
                     )
                 ) : null}
             </Avatar>
@@ -197,8 +201,10 @@ export default function TranscriptItem({from = {}, description, timeDiff = {}, e
         </Grid>
         {
             editable ? (
-                <Grid item className={classes.transcript} onMouseEnter={() => setShowEditIcon(true)} onMouseLeave={() => setShowEditIcon(false)}>
-                    {showEditIcon && !isEditable && <EditIcon onClick={handleEditIconClick} color={"action"} className={classes.editIcon}/>}
+                <Grid item className={classes.transcript} onMouseEnter={() => setShowEditIcon(true)}
+                      onMouseLeave={() => setShowEditIcon(false)}>
+                    {showEditIcon && !isEditable &&
+                    <EditIcon onClick={handleEditIconClick} color={"action"} className={classes.editIcon}/>}
                     <div>
                         <Typography className={classes.timeText}>
                             {speakerName} &nbsp;
@@ -211,11 +217,13 @@ export default function TranscriptItem({from = {}, description, timeDiff = {}, e
                     </div>
 
                     {(isEditable) ?
-                        <EditableText ref={editRef} updateTranscript={() => {updateTranscript(index, text)}}
+                        <EditableText ref={editRef} updateTranscript={() => {
+                            updateTranscript(index, text)
+                        }}
                                       dismissEdit={onBlur}
                                       value={text}
                                       handleChange={handleDescriptionChange}
-                                      onBlur={onBlur} classes ={classes}
+                                      onBlur={onBlur} classes={classes}
                         /> :
                         <Typography variant="caption" className={classes.description}>{description}</Typography>
                     }

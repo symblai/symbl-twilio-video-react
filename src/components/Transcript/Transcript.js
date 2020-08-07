@@ -1,22 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import moment from 'moment';
-import words from 'lodash-es/words';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
 import Paper from "@material-ui/core/Paper";
-import {range} from "lodash-es";
 import Grid from "@material-ui/core/Grid";
 import TranscriptItem from "./TranscriptItem/TranscriptItem";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import IconButton from "@material-ui/core/IconButton";
-import SvgIcon from "@material-ui/core/SvgIcon";
 import useSymblContext from "../../hooks/useSymblContext/useSymblContext";
 import padStart from "lodash-es/padStart";
-// import AttendeeSearch from "../AttendeeSearch";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: "flex",
         justifyContent: "center",
@@ -63,68 +56,12 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
-export const updateTranscript = ({messageId, transcriptId, meetingId, updatePayload, resource, action}) => {
-
-
-    const transcriptPayload = updatePayload;
-
-
-    // fetch(apiConfig.summaryApiBaseurl + '/' + meetingId + '/transcript/' + transcriptId + '/' + messageId + '/' + resource, {
-    //     method: getMethodFromAction(action),
-    //     cache: 'no-cache',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(transcriptPayload)
-    // }).then((response) => {
-    //     // if(!response.ok) {
-    //     //     return dispatch({
-    //     //         type: UPDATE_TRANSCRIPT_FAILED,
-    //     //         insightPayload: transcriptPayload
-    //     //     });
-    //     // }
-    //     // return dispatch({
-    //     //     type: UPDATE_TRANSCRIPT_SUCCESS,
-    //     //     insightPayload: transcriptPayload
-    //     // });
-    // }).catch(err => {
-    //     // return dispatch({
-    //     //     type: UPDATE_TRANSCRIPT_FAILED,
-    //     //     insightPayload: transcriptPayload,
-    //     //     err
-    //     // });
-    // });
-};
-
-function getTranscriptCopyPayload(transcripts = {}) {
-    let transcriptForClipboard = '';
-    if (transcripts.items) {
-        transcripts.items
-            .filter(transcript => transcript.metadata && transcript.metadata.originalMessageId)
-            .forEach((transcript) => {
-                transcriptForClipboard +=
-                    (transcript.from && Object.keys(transcript.from).length > 0 ? transcript.from.name + ': ' : '') +
-                    '(' +
-                    [
-                        (transcript.timeDiff.hours === '00' ? '' : transcript.timeDiff.hours + ':') +
-                        transcript.timeDiff.minutes,
-                        transcript.timeDiff.seconds,
-                    ].join(':') +
-                    '): ' +
-                    transcript.text +
-                    '\r\n\r\n';
-            });
-    }
-    transcriptForClipboard = transcriptForClipboard.trim();
-    return transcriptForClipboard;
-}
 
 export function TranscriptElement({onSave, width, height, editable = false, transcriptItems}) {
 
     const classes = useStyles();
     const w = width;
     const h = height;
-    // console.log('TranscriptElement', transcriptItems)
 
     const [containerRef, setContainerRef] = useState(null);
 
@@ -132,7 +69,7 @@ export function TranscriptElement({onSave, width, height, editable = false, tran
         if (!containerRef) {
             setContainerRef(React.createRef());
         }
-    });
+    }, [containerRef]);
 
     useEffect(() => {
         if (containerRef && containerRef.current) {
@@ -150,23 +87,6 @@ export function TranscriptElement({onSave, width, height, editable = false, tran
                     <Typography variant="h6">
                         Transcript
                     </Typography>
-                    {/*<CopyToClipboard
-                        text={getTranscriptCopyPayload(transcripts)}
-                        onCopy={() => {
-                        }}
-                    >
-                        <IconButton
-                            style={{
-                                padding: 6,
-                                color: '#777',
-                            }}
-                        >
-                            <SvgIcon className={classes.copyIcon}>
-                                <path
-                                    d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                            </SvgIcon>
-                        </IconButton>
-                    </CopyToClipboard>*/}
                 </Grid>
                 <Grid className={classes.transcriptContainer} ref={containerRef} style={{height: `calc(${h} - 62px)`}}>
                     {transcriptItems.filter(item => !!item).map(({text, timeDiff, from}, index) => (
@@ -179,15 +99,6 @@ export function TranscriptElement({onSave, width, height, editable = false, tran
                             editable={editable}
                         />))}
                 </Grid>
-                {/*<AttendeeSearch*/}
-                {/*    attendees={[]}*/}
-                {/*    attendeeAvatarColors={[]}*/}
-                {/*    anchorEl={null}*/}
-                {/*    transcript={{}}*/}
-                {/*    attendeeSelectionCallback={() => null}*/}
-                {/*    clickAwayCallback={() => null}*/}
-                {/*    attendeeClearedCallback={() => null}*/}
-                {/*/>*/}
             </Paper>
         </Grid>
     );
@@ -217,14 +128,12 @@ const convertMessageToTranscriptItem = (message, startedTime) => {
 }
 
 export default function Transcript({ height }) {
-    const {newMessages, messages, startedTime} = useSymblContext()
+    const {newMessages, startedTime} = useSymblContext()
 
-    // console.log('Transcript', newMessages, messages)
     let [transcriptItems, setTranscriptItems] = useState([]);
 
     useEffect(() => {
         if (newMessages && newMessages.length > 0) {
-            // console.log('Converting to item')
             const newTranscriptItems = newMessages.map(message => convertMessageToTranscriptItem(message, startedTime));
             setTranscriptItems([...transcriptItems, ...newTranscriptItems]);
         }

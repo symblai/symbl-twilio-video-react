@@ -1,10 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import ParticipantStrip from '../ParticipantStrip/ParticipantStrip';
-import { styled } from '@material-ui/core/styles';
+import {styled} from '@material-ui/core/styles';
 import MainParticipant from '../MainParticipant/MainParticipant';
-import {useAppState} from "../../state";
-import useVideoContext from "../../hooks/useVideoContext/useVideoContext";
 import Transcript from "../Transcript/Transcript";
 import useSymblContext from "../../hooks/useSymblContext/useSymblContext";
 import CircularProgress from "@material-ui/core/CircularProgress";

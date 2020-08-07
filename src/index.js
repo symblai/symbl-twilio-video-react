@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Switch} from 'react-router-dom';
 import './index.css';
 import App from './App';
 import AppStateProvider, {useAppState} from './state';
@@ -14,7 +14,7 @@ import theme from "./theme";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const VideoApp = () => {
-    const {error, setError, settings} = useAppState();
+    const {setError, settings} = useAppState();
     const connectionOptions = generateConnectionOptions(settings);
 
     return (

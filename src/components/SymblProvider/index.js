@@ -22,13 +22,8 @@ export function SymblProvider({
         room: {localParticipant}
     } = useVideoContext();
 
-
-    // const [resultCallbacks, setCallbacks] = useState([]);
-
     const onResultCallback = (data) => {
-        // console.log(data);
         if (data) {
-            // executeCallbacks(data);
             const {type} = data;
             if (type) {
                 if (type === 'transcript_response') {
@@ -40,34 +35,9 @@ export function SymblProvider({
         }
     }
 
-    // const registerCallback = (callback) => {
-    //     if (callback && typeof callback === 'function') {
-    //         setCallbacks([...resultCallbacks, callback]);
-    //     }
-    // };
-    //
-    // const executeCallbacks = (data) => {
-    //     resultCallbacks.forEach(callback => {
-    //         setTimeout(() => {
-    //             callback(data);
-    //         }, 0)
-    //     })
-    // }
-
     const onSpeechDetected = (data) => {
         setClosedCaptionResponse(data)
     };
-
-    /*const getAllMessages = () => {
-        return localStorage.getItem('messages') || [];
-    }
-
-    const addMessages = (newMessages = []) => {
-        const messages = getAllMessages();
-        messages.push(newMessages);
-        localStorage.setItem('messages', messages);
-
-    };*/
 
     const onMessageResponse = (newMessages) => {
         // console.log('newMessages: ', newMessages);
@@ -76,7 +46,7 @@ export function SymblProvider({
     };
 
     const onConversationCompleted = (messages) => {
-        // console.log(messages);
+        console.log('Conversation completed.', messages);
     }
 
     const handlers = {
@@ -92,25 +62,23 @@ export function SymblProvider({
         isConnected, connectionId, startedTime, startSymbl, stopSymbl, startSymblWebSocketApi, stopSymblWebSocketApi,
         muteSymbl, unMuteSymbl, isMute
     } =
-        useSymbl(onErrorCallback, onResultCallback, {
-            meetingTitle: roomName,
-            meetingId: btoa(roomName),
-            handlers,
-            localParticipant: {
-                name: localParticipant.identity
-            },
-            ...options
-        });
+        useSymbl(onErrorCallback, onResultCallback, {...options});
 
     useEffect(() => {
         (async () => {
             if (roomName) {
                 if (symblConnectionMode === 'websocket_api') {
-                    await startSymblWebSocketApi();
+                    await startSymblWebSocketApi(handlers, {
+                        meetingTitle: roomName,
+                        meetingId: btoa(roomName),
+                        handlers,
+                        localParticipant: {
+                            name: localParticipant.identity
+                        }
+                    });
                 } else {
                     await startSymbl(roomName);
                 }
-
             }
         })();
     }, [roomName])
@@ -133,9 +101,6 @@ export function SymblProvider({
                 messages,
                 onError: onErrorCallback,
                 onResultCallback: onResultCallback,
-                // registerCallback: (callback) => {
-                //     registerCallback(callback)
-                // }
             }}
         >
             {children}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 import Fab from '@material-ui/core/Fab';
 import ScreenShare from '@material-ui/icons/ScreenShare';

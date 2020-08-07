@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {styled} from '@material-ui/core/styles';
 import useHeight from './hooks/useHeight/useHeight';
 import {useParams} from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
 import LocalVideoPreview from "./components/LocalVideoPreview/LocalVideoPreview";
 import Room from "./components/Room/Room";
@@ -11,10 +10,8 @@ import {useAppState} from "./state";
 import useVideoContext from "./hooks/useVideoContext/useVideoContext";
 import MenuBar from "./components/MenuBar/MenuBar";
 import ClosedCaptions from "./components/ClosedCaptions/ClosedCaptions";
-import useSymbl from "./components/SymblProvider/useSymbl/useSymbl";
 import {SymblProvider} from "./components/SymblProvider";
 import Controls from "./components/Controls/Controls";
-import useMainSpeaker from "./hooks/useMainSpeaker/useMainSpeaker";
 
 const Container = styled('div')({
     display: 'grid',

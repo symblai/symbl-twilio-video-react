@@ -1,16 +1,12 @@
 import React from 'react';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
-
 import EndCallButton from './EndCallButton/EndCallButton';
 import ToggleAudioButton from './ToggleAudioButton/ToggleAudioButton';
 import ToggleVideoButton from './ToggleVideoButton/ToggleVideoButton';
 import ToggleScreenShareButton from './ToogleScreenShareButton/ToggleScreenShareButton';
-
 import useIsUserActive from './useIsUserActive/useIsUserActive';
 import useRoomState from '../../hooks/useRoomState/useRoomState';
-import useSymblContext from "../../hooks/useSymblContext/useSymblContext";
-import ClosedCaptions from "../ClosedCaptions/ClosedCaptions";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -44,7 +40,6 @@ export default function Controls() {
     const isReconnecting = roomState === 'reconnecting';
     const isUserActive = useIsUserActive();
     const showControls = isUserActive || roomState === 'disconnected';
-    const context = useSymblContext()
 
     return (
         <div className={clsx(classes.container, {showControls})}>

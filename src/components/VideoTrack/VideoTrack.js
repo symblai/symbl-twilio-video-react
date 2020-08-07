@@ -1,7 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import { styled } from '@material-ui/core/styles';
+import React, {useEffect, useRef} from 'react';
+import {styled} from '@material-ui/core/styles';
 import useMediaStreamTrack from '../../hooks/useMediaStreamTrack/useMediaStreamTrack';
-import useMainSpeaker from "../../hooks/useMainSpeaker/useMainSpeaker";
 
 const Video = styled('video')({
   width: '100%',
