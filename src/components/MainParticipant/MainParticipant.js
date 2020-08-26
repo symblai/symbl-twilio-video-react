@@ -4,6 +4,7 @@ import React from 'react';
 import useMainSpeaker from '../../hooks/useMainSpeaker/useMainSpeaker';
 import useSelectedParticipant from '../VideoProvider/useSelectedParticipant/useSelectedParticipant';
 import useScreenShareParticipant from '../../hooks/useScreenShareParticipant/useScreenShareParticipant';
+import Transcript from "../Transcript/Transcript";
 
 export default function MainParticipant() {
   const mainParticipant = useMainSpeaker();
@@ -18,6 +19,7 @@ export default function MainParticipant() {
        is already being rendered in the <ParticipantStrip /> component.  */
     <MainParticipantInfo participant={mainParticipant}>
       <ParticipantTracks participant={mainParticipant} disableAudio enableScreenShare videoPriority={videoPriority} mainPariticipant={true}/>
+      <Transcript height={"100%"}/>
     </MainParticipantInfo>
   );
 }

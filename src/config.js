@@ -1,7 +1,7 @@
 const config = {
     symbl: {
-        appId: '',
-        appSecret: ''
+        appId: localStorage.getItem('symblAppId') || '',
+        appSecret: localStorage.getItem('symblAppSecret') || ''
     }
 };
 export default config;
