@@ -10,6 +10,9 @@ import {useParams} from 'react-router-dom';
 import useRoomState from '../../hooks/useRoomState/useRoomState';
 import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
 import {Typography} from '@material-ui/core';
+import Menu from "./Menu/Menu";
+import LocalAudioLevelIndicator from "./DeviceSelector/LocalAudioLevelIndicator/LocalAudioLevelIndicator";
+import config from '../../config';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -81,7 +84,7 @@ export default function MenuBar() {
     event.preventDefault();
     // If this app is deployed as a twilio function, don't change the URL because routing isn't supported.
     if (!window.location.origin.includes('twil.io')) {
-      window.history.replaceState(null, '', window.encodeURI(`/room/${roomName}/${name}${window.location.search || ''}`));
+      window.history.replaceState(null, '', window.encodeURI(`${config.appBasePath || "/"}room/${roomName}/${name}${window.location.search || ''}`));
     }
     getToken(name, roomName).then(token => connect(token));
   };
@@ -127,12 +130,12 @@ export default function MenuBar() {
         ) : (
           <h3>{roomName}</h3>
         )}
-        {/*<div className={classes.rightButtonContainer}>*/}
-        {/*  <FlipCameraButton />*/}
-        {/*  <LocalAudioLevelIndicator />*/}
-        {/*  <ToggleFullscreenButton />*/}
-        {/*  <Menu />*/}
-        {/*</div>*/}
+        <div className={classes.rightButtonContainer}>
+          {/*<FlipCameraButton />*/}
+          <LocalAudioLevelIndicator />
+          {/*<ToggleFullscreenButton />*/}
+          <Menu />
+        </div>
       </Toolbar>
     </AppBar>
   );

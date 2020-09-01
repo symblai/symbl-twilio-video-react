@@ -12,6 +12,9 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import theme from "./theme";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import config from './config';
+
+const basePath = config.appBasePath || "/";
 
 const VideoApp = () => {
     const {setError, settings} = useAppState();
@@ -33,16 +36,16 @@ ReactDOM.render(
         <Router>
             <AppStateProvider>
                 <Switch>
-                    <PrivateRoute exact path="/">
+                    <PrivateRoute exact path={basePath}>
                         <VideoApp/>
                     </PrivateRoute>
-                    <PrivateRoute exact path="/room/:URLRoomName">
+                    <PrivateRoute exact path={`${basePath}room/:URLRoomName`}>
                         <VideoApp/>
                     </PrivateRoute>
-                    <PrivateRoute exact path="/room/:URLRoomName/:UserName">
+                    <PrivateRoute exact path={`${basePath}room/:URLRoomName/:UserName`}>
                         <VideoApp/>
                     </PrivateRoute>
-                    <Redirect to="/"/>
+                    <Redirect to={basePath}/>
                 </Switch>
             </AppStateProvider>
         </Router>

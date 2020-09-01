@@ -9,9 +9,11 @@ export const initialSettings = {
   renderDimensionLow: 'low',
   renderDimensionStandard: '960p',
   renderDimensionHigh: 'wide1080p',
+  symblAppId: localStorage.getItem('symblAppId') || '',
+  symblAppSecret: localStorage.getItem('symblAppSecret') || ''
 };
 
-// This inputLabels object is used by ConnectionOptions.tsx. It is used to populate the id, name, and label props
+// This inputLabels object is used by ConnectionOptions.js. It is used to populate the id, name, and label props
 // of the various input elements. Using a typed object like this (instead of strings) eliminates the possibility
 // of there being a typo.
 export const inputLabels = (() => {

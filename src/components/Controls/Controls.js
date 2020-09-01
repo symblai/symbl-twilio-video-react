@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) =>
             right: '50%',
             transform: 'translate(50%, 30px)',
             bottom: '50px',
-            zIndex: 1001,
+            zIndex: 2100,
             transition: 'opacity 1.2s, transform 1.2s, visibility 0s 1.2s',
             opacity: 0,
             visibility: 'hidden',

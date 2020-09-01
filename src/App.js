@@ -54,7 +54,7 @@ function App() {
 
     return (
         <Container style={{height}}>
-            {roomState === 'disconnected' ? <MenuBar/> : undefined}
+            <MenuBar/>
             <Main>
                 {roomState === 'disconnected' ? <LocalVideoPreview/> : (
                     <SymblProvider roomName={roomName}>
@@ -63,7 +63,6 @@ function App() {
                         <Controls/>
                     </SymblProvider>
                 )}
-
             </Main>
         </Container>
     );

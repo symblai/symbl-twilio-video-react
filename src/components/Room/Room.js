@@ -28,7 +28,6 @@ export default function Room() {
       { isStarting ? <CircularProgress /> : undefined}
       <ParticipantStrip />
       <MainParticipant />
-      <Transcript height={"100%"}/>
     </Container>
   );
 }

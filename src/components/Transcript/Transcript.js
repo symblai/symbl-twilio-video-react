@@ -26,7 +26,6 @@ const useStyles = makeStyles(() => ({
         borderRadius: 0,
         position: 'fixed',
         background: 'rgb(0, 0, 0, 0.5)',
-        top: 0,
         right: 0,
         zIndex: 1500
     },

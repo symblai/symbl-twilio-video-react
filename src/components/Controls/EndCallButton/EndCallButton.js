@@ -1,5 +1,6 @@
 import React from 'react';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
+import config from '../../../config';
 
 import CallEnd from '@material-ui/icons/CallEnd';
 import Fab from '@material-ui/core/Fab';
@@ -22,13 +23,13 @@ const disconnect = async (room, stopSymblWebSocketApi, isConnected) => {
         await stopSymblWebSocketApi(() => {
             room.disconnect();
             if (!window.location.origin.includes('twil.io')) {
-                window.location = "/";
+                window.location = config.appBasePath || "/";
             }
         });
     } else {
         room.disconnect();
         if (!window.location.origin.includes('twil.io')) {
-            window.location = "/";
+            window.location = config.appBasePath || "/";
         }
     }
 };
