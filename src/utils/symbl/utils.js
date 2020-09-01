@@ -1,5 +1,8 @@
+import config from '../../config';
+const {enableInAppCredentials} = config.symbl;
+
 export const getAccessToken = async ({appId, appSecret}) => {
-    if (appId && appSecret) {
+    if (appId && appSecret && enableInAppCredentials) {
         const apiBase = process.env.SYMBL_API_BASE_PATH || 'https://api.symbl.ai';
         return await postData(`${apiBase}/oauth2/token:generate`, {
             type: 'application',

@@ -1,6 +1,4 @@
 import React, {useState, useRef, useCallback, useEffect} from 'react';
-// import AboutDialog from '../AboutDialog/AboutDialog';
-// import IconButton from '@material-ui/core/IconButton';
 import MenuContainer from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -10,6 +8,8 @@ import UserAvatar from '../UserAvatar/UserAvatar';
 import {useAppState} from '../../../state';
 import useVideoContext from '../../../hooks/useVideoContext/useVideoContext';
 import IconButton from "@material-ui/core/IconButton";
+import config from '../../../config';
+const {enableInAppCredentials} = config.symbl;
 
 export default function Menu() {
     const {user, signOut} = useAppState();
@@ -29,10 +29,12 @@ export default function Menu() {
     }, [room.disconnect, localTracks, signOut]);
 
     useEffect(() => {
-        const symblAppId = localStorage.getItem('symblAppId');
-        const symblAppSecret = localStorage.getItem('symblAppSecret');
-        if (!symblAppId || !symblAppSecret) {
-            setSettingsOpen(true);
+        if (enableInAppCredentials) {
+            const symblAppId = localStorage.getItem('symblAppId');
+            const symblAppSecret = localStorage.getItem('symblAppSecret');
+            if (!symblAppId || !symblAppSecret) {
+                setSettingsOpen(true);
+            }
         }
     })
 

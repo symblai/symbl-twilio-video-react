@@ -3,20 +3,18 @@ import {
     DialogContent,
     FormControl,
     Grid,
-    InputLabel,
-    MenuItem,
-    Select,
     TextField,
     Typography,
 } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import {inputLabels, Settings} from '../../../state/settings/settingsReducer';
-import {RenderDimensions} from '../../../state/settings/renderDimensions';
+import {inputLabels} from '../../../state/settings/settingsReducer';
 import {useAppState} from '../../../state';
 import useRoomState from '../../../hooks/useRoomState/useRoomState';
 import Button from "@material-ui/core/Button";
 import {getAccessToken} from "../../../utils/symbl/utils";
 import Link from "@material-ui/core/Link";
+import config from '../../../config';
+const {enableInAppCredentials} = config.symbl;
 
 const useStyles = makeStyles({
     formControl: {
@@ -33,19 +31,13 @@ const useStyles = makeStyles({
 
 const withDefault = (val) => (val && typeof val === 'undefined' ? 'default' : val);
 
-const RenderDimensionItems = RenderDimensions.map(({label, value}) => (
-    <MenuItem value={value} key={value}>
-        {label}
-    </MenuItem>
-));
-
 const hexRegex = new RegExp('[0-9a-f]+');
 
 export default function CredentialsOptions({className, hidden}) {
     const classes = useStyles();
     const {settings, dispatchSetting} = useAppState();
     const roomState = useRoomState();
-    const isDisabled = roomState && roomState.roomState !== 'disconnected';
+    const isDisabled = roomState && roomState.roomState !== 'disconnected' || !enableInAppCredentials;
 
     const [credentialsValid, setCredentialsValid] = useState(null);
 
