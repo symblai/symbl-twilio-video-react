@@ -29,6 +29,12 @@ This application is supported only on Google Chrome.
 
 ## Set Up
 
+By default, App will ask you for your Symbl App ID and App Secret to be entered. A dialog will be shown automatically if you're opening the app first time and doesn't have credentials configured alreaady.
+ 
+![Symbl Credentials Dialog](./docs/symbl-credentials.png?v=4&s=100)
+ 
+If you are planning to set up a token server for generating Symbl token and disable the in app App ID/App Secret configuration, you can disable it by setting `enableInAppCredentials` to `false` in the [config.js](https://github.com/symblai/symbl-twilio-video-react/blob/a42d0394ae7ff7c67cdf35df0bd3b013a3cdcfb5/src/config.js#L5) file.
+
 ### Running a local token server
 This application requires Symbl access token to connect to talk to Symbl and Twilio access token to connect to a Twilio Room.
 
