@@ -1,14 +1,13 @@
 import React from 'react';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
-import config from '../../../config';
-
 import CallEnd from '@material-ui/icons/CallEnd';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
-
 import useVideoContext from '../../../hooks/useVideoContext/useVideoContext';
-
 import useSymblContext from "../../../hooks/useSymblContext/useSymblContext";
+import _config from '../../../config';
+
+const config = _config();
 
 const useStyles = makeStyles((theme) =>
     createStyles({

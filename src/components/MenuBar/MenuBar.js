@@ -12,7 +12,9 @@ import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
 import {Typography} from '@material-ui/core';
 import Menu from "./Menu/Menu";
 import LocalAudioLevelIndicator from "./DeviceSelector/LocalAudioLevelIndicator/LocalAudioLevelIndicator";
-import config from '../../config';
+import _config from '../../config';
+
+const config = _config();
 
 const useStyles = makeStyles((theme) =>
   createStyles({

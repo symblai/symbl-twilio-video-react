@@ -13,7 +13,9 @@ import useRoomState from '../../../hooks/useRoomState/useRoomState';
 import Button from "@material-ui/core/Button";
 import {getAccessToken} from "../../../utils/symbl/utils";
 import Link from "@material-ui/core/Link";
-import config from '../../../config';
+import _config from '../../../config';
+
+const config = _config();
 const {enableInAppCredentials} = config.symbl;
 
 const useStyles = makeStyles({

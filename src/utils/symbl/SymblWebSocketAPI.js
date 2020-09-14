@@ -1,10 +1,13 @@
 import {getAccessToken} from "./utils";
 import config from '../../config';
-const {symbl} = config;
 
-const appId = process.env.SYMBL_APP_ID || symbl.appId;
-const appSecret = process.env.SYMBL_APP_SECRET || symbl.appSecret;
-const apiBase = process.env.SYMBL_API_BASE_PATH || 'https://api.symbl.ai';
+const getCredentials = () => {
+    const {symbl} = config();
+    const appId = process.env.SYMBL_APP_ID || symbl.appId;
+    const appSecret = process.env.SYMBL_APP_SECRET || symbl.appSecret;
+    const apiBase = process.env.SYMBL_API_BASE_PATH || 'https://api.symbl.ai';
+    return {appId, appSecret, apiBase};
+};
 
 export default class SymblWebSocketAPI {
 
@@ -37,6 +40,7 @@ export default class SymblWebSocketAPI {
 
         this.onStopCallback = null;
         this.start = this.start.bind(this);
+        const {apiBase} = getCredentials();
         const _url = new URL(apiBase);
         _url.protocol = 'wss:';
         const wssBasePath = _url.origin;
@@ -75,6 +79,7 @@ export default class SymblWebSocketAPI {
 
     async openConnectionAndStart() {
         try {
+            const {appId, appSecret} = getCredentials();
             const json = await getAccessToken({appId, appSecret});
             const {accessToken, message} = json;
             if (message) {

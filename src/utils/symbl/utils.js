@@ -1,5 +1,5 @@
 import config from '../../config';
-const {enableInAppCredentials} = config.symbl;
+const {enableInAppCredentials} = config().symbl;
 
 export const getAccessToken = async ({appId, appSecret}) => {
     if (appId && appSecret && enableInAppCredentials) {

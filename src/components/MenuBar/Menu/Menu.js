@@ -8,10 +8,12 @@ import UserAvatar from '../UserAvatar/UserAvatar';
 import {useAppState} from '../../../state';
 import useVideoContext from '../../../hooks/useVideoContext/useVideoContext';
 import IconButton from "@material-ui/core/IconButton";
-import config from '../../../config';
-const {enableInAppCredentials} = config.symbl;
+import _config from '../../../config';
 
 export default function Menu() {
+    const config = _config();
+    const {enableInAppCredentials} = config.symbl;
+
     const {user, signOut} = useAppState();
     const {room, localTracks} = useVideoContext();
     // console.log('user', user);
