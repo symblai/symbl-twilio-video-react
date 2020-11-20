@@ -1,6 +1,6 @@
 # Symbl Video React App
 
-This is a multi-party video conferencing application that demonstrates Symbl's Real-time APIs. This application is inspired by [Twilio's video app](https://github.com/twilio/twilio-video-app-react) and is built using [twilio-video.js](https://github.com/twilio/twilio-video-app-react) and [Create React App](https://github.com/facebook/create-react-app).
+This is a multi-party video conferencing application that demonstrates [Symbl's Real-time APIs](https://docs.symbl.ai/#real-time-websocket-api). This application is inspired by [Twilio's video app](https://github.com/twilio/twilio-video-app-react) and is built using [twilio-video.js](https://github.com/twilio/twilio-video-app-react) and [Create React App](https://github.com/facebook/create-react-app).
 
 ## Prerequisites
 You must have the following installed:
