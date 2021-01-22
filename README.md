@@ -1,18 +1,40 @@
-# Symbl Video React App
+# Symbl & Twilio Video React App
 
-This is a multi-party video conferencing application that demonstrates [Symbl's Real-time APIs](https://docs.symbl.ai/#real-time-websocket-api). This application is inspired by [Twilio's video app](https://github.com/twilio/twilio-video-app-react) and is built using [twilio-video.js](https://github.com/twilio/twilio-video-app-react) and [Create React App](https://github.com/facebook/create-react-app).
+============================
 
-## Prerequisites
-You must have the following installed:
+<hr />
+    <img src="https://developer.symbl.ai/assets/images/Symbl.svg" height="48px" alt="Symbl is Conversational AI />
+<hr /> 
 
-* [Node.js v10+](https://nodejs.org/en/download/)
-* NPM v6+ (comes installed with newer Node versions)
+============================
 
-## Install Dependencies
+Symbl's APIs empower developers to enable: 
+- **Real-time** analysis of free-flowing discussions to automatically surface highly relevant summary discussion topics, contextual insights, suggestive action items, follow-ups, decisions, and questions.\
+- **Voice APIs** that makes it easy to add AI-powered conversational intelligence to either [telephony][telephony] or [WebSocket][websocket] interfaces.
+- **Conversation APIs** that provide a REST interface for managing and processing your conversation data.
+- **Summary UI** with a fully customizable and editable reference experience that indexes a searchable transcript and shows generated actionable insights, topics, timecodes, and speaker information.
+<hr />
+Enable Symbl for Twilio Video Conference
+<hr />
+ * [Introduction](#introduction)
+ * [Pre-requisites](#pre-requisites)
+ * [Features](#features)
+ * [Browser Support](#browsersupport)
+ * [Setup and Deploy](#setupanddeploy)
+ * [Dependencies](#dependencies)
+ * [Conclusion](#conclusion)
+ * [Community](#community)
 
-Run `npm install` to install all dependencies from NPM.
+## Introduction
 
-If you want to use `yarn` to install dependencies, first run the [yarn import](https://classic.yarnpkg.com/en/docs/cli/import/) command. This will ensure that yarn installs the package versions that are specified in `package-lock.json`.
+This is a multi-party video conferencing application that demonstrates [Symbl's Real-time APIs](https://docs.symbl.ai/docs/streamingapi/overview/introduction). This application is inspired by [Twilio's video app](https://github.com/twilio/twilio-video-app-react) and is built using [twilio-video.js](https://github.com/twilio/twilio-video-app-react) and [Create React App](https://github.com/facebook/create-react-app).
+
+## Pre-requisites
+
+* JS ES6+
+* [Node.js v10+](https://nodejs.org/en/download/)*
+* NPM v6+
+* Twilio account - https://www.twilio.com/try-twilio
 
 ## Features
 * Live Closed Captioning
@@ -27,35 +49,31 @@ If you want to use `yarn` to install dependencies, first run the [yarn import](h
 ## Browser Support
 This application is supported only on Google Chrome.
 
-## Set Up
+## Setup and Deploy
+The first step to getting setup is to [sign up][signup]. 
 
-By default, App will ask you for your Symbl App ID and App Secret to be entered. A dialog will be shown automatically if you're opening the app first time and doesn't have credentials configured alreaady.
- 
+Gather your Symbl credentials:
+1. Your App Id that you can get from [Platform](https://platform.symbl.ai)
+2. Your App Secret that you can get from [Platform](https://platform.symbl.ai)
+
+This application offers two options for authorizing your Symbl account, in the application, or via the included token server.  Your Twilio account will be authorized via the token server.  
+
+The default behavior is for your Symbl account to authorize in-app.  A dialog box will be shown automatically if you're opening the app for the first time. In the [config.js](https://github.com/symblai/symbl-twilio-video-react/blob/a42d0394ae7ff7c67cdf35df0bd3b013a3cdcfb5/src/config.js#L5) file you will find `enableInAppCredentials` set to `true`.  For this option you are not required to update the [.env](https://github.com/symblai/symbl-twilio-video-react/blob/master/.env) file with Symbl credentials. 
+
 ![Symbl Credentials Dialog](./docs/symbl-credentials.png?v=4&s=100)
- 
-If you are planning to set up a token server for generating Symbl token and disable the in app App ID/App Secret configuration, you can disable it by setting `enableInAppCredentials` to `false` in the [config.js](https://github.com/symblai/symbl-twilio-video-react/blob/a42d0394ae7ff7c67cdf35df0bd3b013a3cdcfb5/src/config.js#L5) file.
 
-### Running a local token server
-This application requires Symbl access token to connect to talk to Symbl and Twilio access token to connect to a Twilio Room.
+If you are planning to use the included token server for generating your Symbl token you may disable the in app App ID/App Secret configuration. You can disable by setting `enableInAppCredentials` to `false` in the [config.js](https://github.com/symblai/symbl-twilio-video-react/blob/a42d0394ae7ff7c67cdf35df0bd3b013a3cdcfb5/src/config.js#L5)
 
-The included local token server provides the application with access tokens for both Symbl and Twilio. Perform the following steps to set up the local token server:
-
-##### Symbl Credentials
-* Create an account in the [Symbl Console](https://platform.symbl.ai) if you don't have one already.
-* After you login, you will find your appId and appSecret on the home page.
-* Store your appId and appSecret in the `.env` file in the root level of the application (example below).
+Store your Symbl credentials in the [.env](https://github.com/symblai/symbl-twilio-video-react/blob/master/.env) file.
 
 ```.env
 SYMBL_APP_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 SYMBL_APP_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-##### Twilio Credentials
-* Create an account in the [Twilio Console](https://www.twilio.com/login).
-* Click on 'Settings' and take note of your Account SID.
-* Create a new API Key in the API Keys Section under Programmable Video Tools in the Twilio Console. 
-* Take note of the SID and Secret of the new API key.
-Store your Account SID, API Key SID, and API Key Secret in the `.env` in the root level of the application (example below).
+Store your Twilio credentials in the [.env](https://github.com/symblai/symbl-twilio-video-react/blob/master/.env) file:
+1. In your Twilio console click on 'Settings' and take note of your Account SID.
+2. Navigate to Settings/API Keys to generate a new Key SID and Secret
 
 ```.env
 TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -63,9 +81,7 @@ TWILIO_API_KEY_SID=SKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 TWILIO_API_KEY_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-Now the local token server (see [server.js](https://github.com/symblai/symbl-video-react/blob/master/server.js)) can dispense Access Tokens for Symbl as well as Twilio to connect to a Room.
-
-### Running the App locally
+The local token server is managed by [server.js](https://github.com/symblai/symbl-video-react/blob/master/server.js)
 
 Run the app locally with
 
@@ -111,5 +127,46 @@ If you want to see how the application behaves with multiple participants, you c
 
 Additionally, if you would like to invite other participants to a room, each participant would need to have their own installation of this application and use the same room name and Account SID (the API Key and Secret can be different).
 
-## License
-See the [LICENSE](https://github.com/symblai/symbl-video-react/blob/master/LICENSE) file for details.
+## Dependencies
+
+```json
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.10.0",
+    "@primer/octicons-react": "^10.0.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "clsx": "^1.1.1",
+    "concurrently": "^5.1.0",
+    "d3-timer": "^1.0.10",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fscreen": "^1.0.2",
+    "is-plain-object": "^4.1.1",
+    "lodash-es": "^4.17.15",
+    "lodash.throttle": "^4.1.1",
+    "moment": "^2.27.0",
+    "node-fetch": "^2.6.0",
+    "react": "^16.13.1",
+    "react-copy-to-clipboard": "^5.0.2",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "twilio": "^3.48.1",
+    "twilio-video": "^2.7.1"
+  }
+```
+
+## Conclusion
+When implemented this application will allow you to join a demo twilio meeting, and Symbl transcripts will be displayed on screen in real time. 
+
+## Community
+
+If you liked our integration guide, please star our repo! If you have any questions, feel free to reach out to us at devrelations@symbl.ai or through our Community Slack at https://developer.symbl.ai/community/slack or our [developer community][developer_community]. 
+This library is released under the [MIT License][license]
+[license]: LICENSE.txt
+[websocket]: https://docs.symbl.ai/docs/streamingapi/overview/introduction
+[developer_community]: https://community.symbl.ai/?_ga=2.134156042.526040298.1609788827-1505817196.1609788827
+[signup]: https://platform.symbl.ai/?_ga=2.63499307.526040298.1609788827-1505817196.1609788827
