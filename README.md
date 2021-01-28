@@ -1,7 +1,7 @@
 # Symbl & Twilio Video React App
 
 ============================
-
+[![Websocket](https://img.shields.io/badge/symbl-websocket-brightgreen)](https://docs.symbl.ai/docs/streamingapi/overview/introduction)
 <hr />
     <img src="https://developer.symbl.ai/assets/images/Symbl.svg" height="48px" alt="Symbl is Conversational AI />
 <hr /> 
@@ -160,13 +160,20 @@ Additionally, if you would like to invite other participants to a room, each par
 ```
 
 ## Conclusion
-When implemented this application will allow you to join a demo twilio meeting, and Symbl transcripts will be displayed on screen in real time. 
+When implemented this application will allow you to join a demo Twilio video conference, and Symbl transcripts will be displayed on screen in real time. 
 
 ## Community
 
-If you liked our integration guide, please star our repo! If you have any questions, feel free to reach out to us at devrelations@symbl.ai or through our Community Slack at https://developer.symbl.ai/community/slack or our [developer community][developer_community]. 
-This library is released under the [MIT License][license]
+If you have any questions, feel free to reach out to us at devrelations@symbl.ai or thorugh our Community Slack at https://developer.symbl.ai/community/slack [developer community][developer_community]
+
+This guide is actively developed, and we love to hear from you! Please feel free to [create an issue][issues] or [open a pull request][pulls] with your questions, comments, suggestions and feedback.  If you liked our integration guide, please star our repo!
+
+This library is released under the [Apache License][license]
+
 [license]: LICENSE.txt
+[telephony]: https://docs.symbl.ai/docs/telephony/overview/post-api
 [websocket]: https://docs.symbl.ai/docs/streamingapi/overview/introduction
 [developer_community]: https://community.symbl.ai/?_ga=2.134156042.526040298.1609788827-1505817196.1609788827
 [signup]: https://platform.symbl.ai/?_ga=2.63499307.526040298.1609788827-1505817196.1609788827
+[issues]: https://github.com/symblai/symbl-for-zoom/issues
+[pulls]: https://github.com/symblai/symbl-for-zoom/pulls
