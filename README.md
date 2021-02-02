@@ -163,7 +163,7 @@ When implemented this application will allow you to join a demo Twilio video con
 
 ## Community
 
-If you have any questions, feel free to reach out to us at devrelations@symbl.ai or thorugh our [Community Slack][slack] or our [forum][developer_community].
+If you have any questions, feel free to reach out to us at devrelations@symbl.ai or through our [Community Slack][slack] or our [forum][developer_community].
 
 This guide is actively developed, and we love to hear from you! Please feel free to [create an issue][issues] or [open a pull request][pulls] with your questions, comments, suggestions and feedback.  If you liked our integration guide, please star our repo!
 
