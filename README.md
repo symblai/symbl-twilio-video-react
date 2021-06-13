@@ -20,7 +20,6 @@ Symbl's APIs empower developers to enable:
  * [Features](#features)
  * [Browser Support](#browsersupport)
  * [Setup and Deploy](#setupanddeploy)
- * [Dependencies](#dependencies)
  * [Conclusion](#conclusion)
  * [Community](#community)
 
