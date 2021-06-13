@@ -53,7 +53,7 @@ Other capabilities of this sample application:
 * Network Quality Indicator
 
 ## Browser Support
-This application is supported only on Google Chrome.
+This web application can be used on browsers supported by the [Twilio's Programmable Video JS SDK](https://github.com/twilio/twilio-video.js/tree/master/#browser-support).
 
 ## Setup and Deploy
 
