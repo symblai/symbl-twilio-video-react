@@ -28,7 +28,7 @@ Symbl's APIs empower developers to enable:
 
 This is a multi-party video-conferencing application that demonstrates the [Symbl's Real-Time APIs](https://symbl.ai/products/) adding intelligence to any type of conversation with no upfront efforts. 
 
-There are different ways to connect with Symbl's Real-Time APIs and you are going to use the [Symbl Streaming APIs](https://docs.symbl.ai/docs/streamingapi/overview/introduction) over WebSocket for real-time capturing of the participant's audio for live **Closed Captioning** and **Real-Time Transcription**.
+There are different ways to connect with Symbl's Real-Time APIs and you are going to use the [Symbl Streaming APIs](https://docs.symbl.ai/docs/streamingapi/overview/introduction) over WebSocket for real-time capturing of the participants' audio for **Live Closed Captioning** and **Real-Time Transcription**.
 
 This application is based on the sample [Twilio's Video React app](https://github.com/twilio/twilio-video-app-react) and is built using the [Twilio's Programmable Video JS SDK](https://github.com/twilio/twilio-video.js).
 
@@ -40,8 +40,11 @@ This application is based on the sample [Twilio's Video React app](https://githu
 
 
 ## Features
+This sample application allows you to understand the power of Symbl's Real-Time APIs by providing the following capabilities:
 * Live Closed Captioning
 * Real-time Transcription
+
+Other capabilities of this sample application:
 * Video conferencing with real-time video and audio
 * Enable/Disable camera
 * Mute/unmute mic
