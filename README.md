@@ -26,12 +26,16 @@ Symbl's APIs empower developers to enable:
 
 ## Introduction
 
-This is a multi-party video conferencing application that demonstrates [Symbl's Real-time APIs](https://docs.symbl.ai/docs/streamingapi/overview/introduction). This application is inspired by [Twilio's video app](https://github.com/twilio/twilio-video-app-react) and is built using [twilio-video.js](https://github.com/twilio/twilio-video-app-react) and [Create React App](https://github.com/facebook/create-react-app).
+This is a multi-party video-conferencing application that demonstrates the [Symbl's Real-Time APIs](https://symbl.ai/products/) adding intelligence to any type of conversation with no upfront efforts. 
+
+There are different ways to connect with Symbl's Real-Time APIs and you are going to use the [Symbl Streaming APIs](https://docs.symbl.ai/docs/streamingapi/overview/introduction) over WebSocket for real-time capturing of the participant's audio for live **Closed Captioning** and **Real-Time Transcription**.
+
+This application is based on the sample [Twilio's Video React app](https://github.com/twilio/twilio-video-app-react) and is built using the [Twilio's Programmable Video JS SDK](https://github.com/twilio/twilio-video.js).
 
 ## Prerequisites
 
-* A Twilio account - You can use your own or sign up for a Twilio account [here](https://www.twilio.com/try-twilio).
 * A Symbl account - You can use your own or sign up for a Symbl account [here][signup]. 
+* A Twilio account - You can use your own or sign up for a Twilio account [here](https://www.twilio.com/try-twilio).
 * Download and install [Node.js v10+](https://nodejs.org/en/download/).
 
 
