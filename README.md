@@ -16,7 +16,7 @@ Symbl's APIs empower developers to enable:
 <hr />
 
  * [Introduction](#introduction)
- * [Pre-requisites](#pre-requisites)
+ * [Prerequisites](#prerequisites)
  * [Features](#features)
  * [Browser Support](#browsersupport)
  * [Setup and Deploy](#setupanddeploy)
@@ -28,12 +28,12 @@ Symbl's APIs empower developers to enable:
 
 This is a multi-party video conferencing application that demonstrates [Symbl's Real-time APIs](https://docs.symbl.ai/docs/streamingapi/overview/introduction). This application is inspired by [Twilio's video app](https://github.com/twilio/twilio-video-app-react) and is built using [twilio-video.js](https://github.com/twilio/twilio-video-app-react) and [Create React App](https://github.com/facebook/create-react-app).
 
-## Pre-requisites
+## Prerequisites
 
-* JS ES6+
-* [Node.js v10+](https://nodejs.org/en/download/)*
-* NPM v6+
-* Twilio account - https://www.twilio.com/try-twilio
+* A Twilio account - You can use your own or sign up for a Twilio account [here](https://www.twilio.com/try-twilio).
+* A Symbl account - You can use your own or sign up for a Symbl account [here][signup]. 
+* Download and install [Node.js v10+](https://nodejs.org/en/download/).
+
 
 ## Features
 * Live Closed Captioning
@@ -49,7 +49,7 @@ This is a multi-party video conferencing application that demonstrates [Symbl's 
 This application is supported only on Google Chrome.
 
 ## Setup and Deploy
-The first step to getting setup is to [sign up][signup]. 
+
 
 Gather your Symbl credentials:
 1. Your App Id that you can get from [Platform](https://platform.symbl.ai)
