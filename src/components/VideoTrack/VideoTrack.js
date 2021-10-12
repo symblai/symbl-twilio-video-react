@@ -3,9 +3,10 @@ import {styled} from '@material-ui/core/styles';
 import useMediaStreamTrack from '../../hooks/useMediaStreamTrack/useMediaStreamTrack';
 
 const Video = styled('video')({
+  height: '100%',
   width: '100%',
-  maxHeight: '100%',
-  objectFit: 'contain',
+  position: "absolute",
+  objectFit: "fill"
 });
 
 export default function VideoTrack({ track, isLocal, priority, mainParticipant }) {
@@ -35,5 +36,5 @@ export default function VideoTrack({ track, isLocal, priority, mainParticipant }
   // console.log(priority)
   // const mainParticipantStyle = isLocal && isFrontFacing && priority === 'high' ? { height: '100%', objectFit: 'cover' } : {}
 
-  return <Video ref={videoElementRef} style={{...style, ...{ height: '100%', objectFit: 'cover' }}} />;
+  return <Video ref={videoElementRef} style={{...style, ...{ height: '100%' }}} />;
 }
