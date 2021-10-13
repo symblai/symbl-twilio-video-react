@@ -31,6 +31,15 @@ Here are a few things you can do that will increase the likelihood of your pull 
 - Keep your change as focused as possible. If there are multiple changes you would like to make that are not dependent upon each other, consider submitting them as separate pull requests.
 - Write a good commit message which descibe the changes.
 
+## Hacktoberfest
+
+- One Good issue raised or a valid pull request accepted will be eligible for Symbl.ai Stickers. 
+- Two or more open and valid pull requests to the repository will be eligible for Symbl.ai Tshirt.
+- **Sending Feedbacks & discussing new features/Bugs**\
+We love feedbacks! Sending feedback is a great way for us to understand your different use cases/issues raised. If you had any issues, bugs, or want to share about your experience, feel free to do so on our at our support channel of [Community Slack](https://bit.ly/symbldotai-slack).
+- **Contributor Swag Form**\
+Please fill out the [Contributor Submissions Form](https://docs.google.com/forms/d/e/1FAIpQLScBQjwTWKpCziEiAfxO5gdw1UHngjIJwbKr1COBkE-G2ov8Vw/viewform) once you have raised PRs for hacktoberfest. 
+
 ## Resources
 
 - [How to contribute to open source on GitHub](https://guides.github.com/activities/contributing-to-open-source/)
