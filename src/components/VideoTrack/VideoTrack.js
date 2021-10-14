@@ -5,8 +5,6 @@ import useMediaStreamTrack from '../../hooks/useMediaStreamTrack/useMediaStreamT
 const Video = styled('video')({
   height: '100%',
   width: '100%',
-  position: "absolute",
-  objectFit: "fill"
 });
 
 export default function VideoTrack({ track, isLocal, priority, mainParticipant }) {
