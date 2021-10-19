@@ -60,7 +60,6 @@ export default function MainParticipantInfo({ participant = {},screenSharePartic
   const videoTrack = useTrack(screenSharePublication || videoPublication);
   const isVideoSwitchedOff = useIsTrackSwitchedOff(videoTrack);
 
-  // console.log(screenShareParticipant);
   return (
     <div
       data-cy-main-participant
