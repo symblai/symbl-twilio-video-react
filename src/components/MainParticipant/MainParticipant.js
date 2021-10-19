@@ -12,13 +12,10 @@ export default function MainParticipant() {
   const mainParticipant = useMainSpeaker();
   const [selectedParticipant] = useSelectedParticipant();
   const screenShareParticipant = useScreenShareParticipant();
+  
   const {
     room: { localParticipant },
   } = useVideoContext();
-
-  
-
-
 
   const videoPriority =
     mainParticipant === selectedParticipant || mainParticipant === screenShareParticipant ? 'high' : null;
