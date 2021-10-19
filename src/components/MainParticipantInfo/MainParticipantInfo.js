@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     },
   },
   identity: {
-    background: 'rgba(0, 0, 0, 0.7)',
+    background: 'rgba(0, 0, 0, 0.5)',
     padding: '0.1em 0.3em',
     margin: '1em',
     fontSize: '1.2em',
@@ -38,9 +38,18 @@ const useStyles = makeStyles({
     padding: '0.4em',
     width: '100%',
   },
+  centerInfoContainer: {
+    position: 'absolute',
+    zIndex: 1,
+    height: '100%',
+    padding: '0.4em',
+    width: '100%',
+    left:"350px", 
+
+  },
 });
 
-export default function MainParticipantInfo({ participant = {}, children }) {
+export default function MainParticipantInfo({ participant = {},screenShareParticipant,localParticipant,children }) {
   const classes = useStyles();
 
   const publications = usePublications(participant);
@@ -50,6 +59,8 @@ export default function MainParticipantInfo({ participant = {}, children }) {
 
   const videoTrack = useTrack(screenSharePublication || videoPublication);
   const isVideoSwitchedOff = useIsTrackSwitchedOff(videoTrack);
+
+  // console.log(screenShareParticipant);
   return (
     <div
       data-cy-main-participant
@@ -57,10 +68,22 @@ export default function MainParticipantInfo({ participant = {}, children }) {
     >
       <div className={classes.infoContainer}>
         <h4 className={classes.identity}>
-          {participant.identity}
+          {participant.identity} 
           {!isVideoEnabled && <VideocamOff />}
         </h4>
-      </div>
+      </div>  
+      {screenShareParticipant &&
+      screenShareParticipant.identity === participant.identity &&
+      screenShareParticipant.identity !== localParticipant.identity ? (
+        <div className={classes.centerInfoContainer}>
+          <h4 className={classes.identity}>
+            {`You are viewing ${screenShareParticipant.identity} screen`}
+          </h4>
+        </div>
+      ) : (
+        <></>
+      )}
+      
       {isVideoSwitchedOff && <BandwidthWarning />}
       {children}
     </div>
