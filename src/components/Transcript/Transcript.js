@@ -8,11 +8,13 @@ import Grid from "@material-ui/core/Grid";
 import TranscriptItem from "./TranscriptItem/TranscriptItem";
 import useSymblContext from "../../hooks/useSymblContext/useSymblContext";
 import padStart from "lodash-es/padStart";
+import Draggable from "react-draggable"
 
 const useStyles = makeStyles(() => ({
     root: {
         display: "flex",
         justifyContent: "center",
+        cursor: "grab",
         alignItems: "center",
     },
     mainContainer: {
@@ -79,27 +81,30 @@ export function TranscriptElement({onSave, width, height, editable = false, tran
 
     return (
         <Grid container style={{width: w}} className={classes.root}>
-            <Paper id={"transcript-paper"} className={classes.mainContainer}
-                   variant={"outlined"}
-            >
-                <Grid className={classes.transcriptsHeader}>
-                    <Typography variant="h6">
-                        Transcript
-                    </Typography>
-                </Grid>
-                <Grid className={classes.transcriptContainer} ref={containerRef} style={{height: `calc(${h} - 62px)`}}>
-                    {transcriptItems.filter(item => !!item).map(({text, timeDiff, from}, index) => (
-                        <TranscriptItem
-                            key={index} index={index}
-                            description={text}
-                            timeDiff={timeDiff}
-                            from={from}
-                            updateTranscript={onSave}
-                            editable={editable}
-                        />))}
-                </Grid>
-            </Paper>
+            <Draggable>
+                <Paper id={"transcript-paper"} className={classes.mainContainer}
+                    variant={"outlined"}
+                >
+                    <Grid className={classes.transcriptsHeader}>
+                        <Typography variant="h6">
+                            Transcript
+                        </Typography>
+                    </Grid>
+                    <Grid className={classes.transcriptContainer} ref={containerRef} style={{height: `calc(${h} - 62px)`}}>
+                        {transcriptItems.filter(item => !!item).map(({text, timeDiff, from}, index) => (
+                            <TranscriptItem
+                                key={index} index={index}
+                                description={text}
+                                timeDiff={timeDiff}
+                                from={from}
+                                updateTranscript={onSave}
+                                editable={editable}
+                            />))}
+                    </Grid>
+                </Paper>
+            </Draggable>    
         </Grid>
+
     );
 }
 
