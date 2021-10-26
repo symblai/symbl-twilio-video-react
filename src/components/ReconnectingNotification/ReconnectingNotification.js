@@ -25,7 +25,7 @@ export default function ReconnectingNotification() {
   const classes = useStyles();
   const roomState = useRoomState();
 
-  let content = undefined;
+  let content;
 
   if (roomState === 'reconnecting') {
     content = "Reconnecting"
