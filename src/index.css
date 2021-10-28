@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.message{
+  color: #2E3440;
+  font-family: "Comfortaa";
+}
