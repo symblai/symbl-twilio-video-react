@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Dialog, DialogActions, Tab, Tabs, Theme} from '@material-ui/core';
+import {Button, Dialog, DialogActions, Tab, Tabs} from '@material-ui/core';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 import ConnectionOptions from '../ConnectionOptions/ConnectionOptions';
 import {DeviceSelector} from '../DeviceSelector/DeviceSelector';
