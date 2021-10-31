@@ -47,6 +47,7 @@ This is a multi-party video conferencing application that demonstrates [Symbl's 
 
 ## Browser Support
 This application is supported only on Google Chrome.
+Support for more browsers will be added soon.
 
 ## Setup and Deploy
 The first step to getting setup is to [sign up][signup]. 
